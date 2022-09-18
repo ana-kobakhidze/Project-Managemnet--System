@@ -10,7 +10,6 @@ import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.co
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { AuthGuardService as AuthGuard } from './auth-guard.service';
 
-
 const routes: Routes = [
   { path: '', redirectTo:"home", pathMatch:'full' },
   { path:'home',component: WelcomePageComponent},
