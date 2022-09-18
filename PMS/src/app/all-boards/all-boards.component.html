@@ -1,0 +1,40 @@
+<div class="container mt-5">
+  <div class="row">
+    <div
+      class="card view col-3 bg-warning border border-dark rounded me-4 mb-4"
+      style="height: 10rem; width: 19rem"
+      *ngFor="let board of allBoards"
+    >
+      <div class="card-body mask boards">
+        <div>
+          <a
+            href="#"
+            class="btn bg-transparent border border-dark rounded"
+            data-bs-toggle="modal"
+            [attr.data-bs-target]="'#staticBackdrop' + board.id"
+            >X</a
+          >
+        </div>
+        <div (click)="goToBoard(board.id)">
+          <h3 class="card-title text-center mt-1">{{ board.title }}</h3>
+        </div>
+      </div>
+      <app-delete
+        [message]="['DELETE_BOARD_CONFIRMATION' | translate]"
+        [callback]="deleteBoard"
+        [param]="{id: board.id}"
+        [id]="board.id"
+      ></app-delete>
+    </div>
+    <button
+      type="button"
+      style="height: 10rem; width: 19rem"
+      class="btn col-3 bg-transparent border border-dark rounded"
+      data-bs-toggle="modal"
+      data-bs-target="#exampleModal"
+    >
+      {{ "ADD_NEW" | translate }}
+    </button>
+    <app-modal></app-modal>
+  </div>
+</div>

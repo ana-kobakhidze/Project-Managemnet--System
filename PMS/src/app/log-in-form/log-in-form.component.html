@@ -1,0 +1,42 @@
+<div class="container">
+  <div *ngIf="errorMessage">
+    <div class="alert alert-danger" role="alert">
+      {{errorMessage}}
+    </div>
+  </div>
+  <form
+    #signInForm="ngForm"
+    (ngSubmit)="onSubmit(signInForm.value)"
+    class="my-5 d-flex align-items-center flex-column needs-validation"
+  >
+    <div class="col-md-4">
+      <label for="login" class="form-label">{{'FIRST_NAME' | translate}}</label>
+      <input
+        type="text"
+        class="form-control"
+        id="validationCustom01"
+        name="login"
+        [(ngModel)]="userModel.login"
+        required
+      />
+      <div class="valid-feedback">{{'LOOKD_GOOD' | translate}}</div>
+    </div>
+
+    <div class="col-md-4 mt-5">
+      <label for="validationCustom02" class="form-label">{{'PASSWORD' | translate}}</label>
+      <input
+        type="text"
+        class="form-control"
+        id="validationCustom02"
+        [(ngModel)]="userModel.password"
+        name="password"
+        required
+      />
+      <div class="valid-feedback">{{'LOOKS_GOOD' | translate}}</div>
+    </div>
+
+    <div class="col-4 my-5">
+      <button class="btn btn-primary" type="submit">{{'SIGN_IN' | translate}}</button>
+    </div>
+  </form>
+</div>

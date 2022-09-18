@@ -1,0 +1,20 @@
+<div class="card"
+id="{{column.id}}"
+dndDropzone
+[dndEffectAllowed]="draggable.effectAllowed"
+[dndDraggable]="draggable.data"
+(dndStart)="onDragStart($event)"
+(dndDrop)="onDrop($event)"
+(dndDragover)="onDragover($event)">
+  <app-column-header [column]="column"></app-column-header>
+  <app-column-tasks  [column]="column" [columnId]="column.id"></app-column-tasks>
+  <div class="card-footer">
+    <button
+      class="btn btn-block p-0"
+      data-bs-toggle="modal"
+      [attr.data-bs-target]="'#taskModal' + column.id"
+    >
+    {{'ADD_NEW_TASK' | translate}}
+    </button>
+  </div>
+</div>

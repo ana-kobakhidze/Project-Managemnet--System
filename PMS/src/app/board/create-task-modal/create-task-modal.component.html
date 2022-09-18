@@ -1,0 +1,56 @@
+<form #newTaskForm="ngForm" (ngSubmit)="onSubmit(newTaskForm.value)">
+  <div
+    class="modal fade"
+    id="taskModal{{ columnId }}"
+    tabindex="-1"
+    aria-labelledby="taskModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="modal-item">
+            <label for="title" class="form-label">{{'TASK_TITLE' | translate}}</label>
+            <input
+              type="text"
+              class="form-control"
+              id="validationCustom01"
+              name="title"
+              [(ngModel)]="newTask.title"
+              required
+            />
+          </div>
+          <div class="modal-item">
+            <label for="description" class="form-label"
+              >{{'TASK_DESCRIPTION' | translate}}</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              id="validationCustom01"
+              name="description"
+              [(ngModel)]="newTask.description"
+              required
+            />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+          {{'CANCEL' | translate}}
+          </button>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            data-bs-dismiss="modal"
+          >
+          {{'CREATE' | translate}}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

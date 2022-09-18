@@ -1,0 +1,23 @@
+<div class="container" >
+
+  <div class="row">
+
+    <div class="col-md-3 mx-auto my-5 draggableCards" 
+    *ngFor="let column of columns;"
+    >
+    <app-board-column [column]="column" [callback]="fetchColumns"></app-board-column>
+    </div>
+  </div>
+
+  <div class="col">
+    <button
+      type="button"
+      class="btn bg-transparent border border-dark rounded"
+      data-bs-toggle="modal"
+      data-bs-target="#columnModal"
+    >
+     {{'ADD_NEW' | translate}}
+    </button>
+  </div>
+  <app-create-modal></app-create-modal>
+</div>

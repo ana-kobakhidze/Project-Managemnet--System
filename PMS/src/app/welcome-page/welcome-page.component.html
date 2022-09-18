@@ -1,0 +1,32 @@
+<div class="container text-left">
+  <div class="row align-items-start">
+    <div class="col">
+      <div class="row align-items-start mt-5">
+        <h2  class="fw-bold fs-1 ">
+        {{'WElCOME_TO' | translate}}
+        </h2>
+        <h5 class="fs-7 fw-light my-4">
+          {{'WELCOME_TEXT' | translate}}
+        </h5>
+        <button
+          type="button"
+          class="btn btn-warning btn-outline-dark fw-bold my-3 mx-2"
+          style="width: 12rem;height:3rem"
+          (click)="redirectTo()"
+        >
+          {{'SIGN_UP' | translate}}
+        </button>
+      </div>
+    </div>
+    <div class="col text-end d-none d-lg-block d-xl-block">
+      <img
+        class="img-responsive"
+        src="../../assets/images/illustration.svg"
+        width="700"
+        height="700"
+        alt="illustration"
+      />
+    </div>
+  </div>
+  <router-outlet></router-outlet>
+</div>

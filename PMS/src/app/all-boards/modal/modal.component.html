@@ -1,0 +1,66 @@
+<form #newBoardForm="ngForm" (ngSubmit)="onSubmit(newBoardForm.value)">
+  <div
+    class="modal fade"
+    id="exampleModal"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">
+            {{'ADD_NEW_BOARD' | translate}}
+          </h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+
+        <div class="modal-body">
+          <label for="title" class="form-label">{{'BOARD_TITLE' | translate}}</label>
+          <input
+            type="text"
+            class="form-control"
+            id="validationCustom01"
+            name="title"
+            [(ngModel)]="newBoard.title"
+            required
+          />
+          <label  for="description" class="form-label"
+            >{{'BOARD_DESCRIPTION' | translate}}</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            id="validationCustom01"
+            name="description"
+            [(ngModel)]="newBoard.description"
+            required
+          />
+        </div>
+        <div class="modal-footer">
+          <button
+            
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+          {{'CLOSE' | translate}}
+          </button>
+          <button
+           
+            type="submit"
+            class="btn btn-primary"
+            data-bs-dismiss="modal"
+          >
+          {{'CREATE' | translate}}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,87 @@
+<div class="container">
+
+  <form
+    #signUpForm="ngForm"
+    (ngSubmit)="onSubmit(signUpForm.value)"
+    class="my-5 d-flex align-items-center flex-column needs-validation"
+    ngNativeValidate>
+
+<div class="col-md-4">
+      <label for="name" class="form-label">{{'FIRST_NAME' | translate}}</label>
+      <input
+        type="text"
+        class="form-control"
+        id="validationCustom01"
+        minlength="4"
+        name="name"
+        [(ngModel)]="userModel.name"
+        #name="ngModel"
+        required
+      />
+      <div class="valid-feedback">{{'LOOKS_GOOD' | translate}}</div>
+      <div class="invalid-feedback " *ngIf="name.invalid && (name.dirty || name.touched)"
+      class="alert">
+      <div class="text-danger" *ngIf="name.errors?.['required']">
+        {{'NAME_REQUIRED' | translate}}
+      </div>
+      <div class="text-danger" *ngIf="name.errors?.['minlength']">
+        {{'NAME_4CHARS' | translate}}
+      </div>
+      </div>
+ </div>
+    
+
+ <div class="col-md-4 mt-5">
+      <label for="login" class="form-label">{{'USER_NAME' | translate}}</label>
+      <div class="input-group has-validation">
+        <input
+          type="text"
+          class="form-control"
+          id="validationCustomlogin"
+          [(ngModel)]="userModel.login"
+          name="login"
+          #login="ngModel"
+          required
+        />
+        <div class="invalid-feedback " *ngIf="login.invalid && (login.dirty || login.touched)"
+        class="alert">
+        <div class="text-danger" *ngIf="login.errors?.['required']">
+          {{'LOGIN_REQUIRED' | translate}}
+        </div>
+        </div>
+ </div>
+
+<div class="col-md-4 mt-5">
+      <label for="validationCustom02" class="form-label">{{'PASSWORD' | translate}}</label>
+      <div class="input-group has-validation">
+      <input
+        type="text"
+        class="form-control"
+        id="validationCustom02"
+        [(ngModel)]="userModel.password"
+        minlength="6"
+        name="password"
+        #password="ngModel"
+        required
+      />
+      <div class="valid-feedback">{{"LOOKS_GOOD" | translate}}</div>
+      <div class="invalid-feedback" *ngIf="password.invalid && (password.dirty || password.touched)"
+      class="alert">
+      <div class="text-danger" *ngIf="password.errors?.['required']">
+        {{'PASSWORD_REQUIRED' | translate}}
+      </div>
+      <div class="text-danger" *ngIf="password.errors?.['minlength']">
+        {{'PASSOWORD_4CHARS' | translate}}
+      </div>
+  </div>
+  </div>
+</div>
+
+    <div class="col-4 my-5">
+      <button class="btn btn-primary" type="submit" 
+      [disabled]="!signUpForm.valid"
+      (click)="validate()">{{'SIGN_UP' | translate}}</button>
+    </div>
+  </div>
+  </form>
+</div>

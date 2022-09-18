@@ -1,0 +1,45 @@
+<div class="card-header">
+  <div class="card-title row align-items-center">
+    <div class="col-7">
+      <div *ngIf="titleIsEditable === false">
+        <h5>{{ column.title }}</h5>
+        <div class="col-3 d-flex">
+          <button class="btn btn-lg" (click)="editColumnTitle()">
+            <i class="bi bi-pencil"></i>
+          </button>
+          <button
+            type="button"
+            class="btn btn-lg"
+            data-bs-toggle="modal"
+            [attr.data-bs-target]="'#staticBackdrop' + column.id"
+          >
+            <i class="bi bi-trash"></i>
+          </button>
+          <app-delete
+            [message]="['DELETE_COLUMN_CONFIRMATION' | translate]"
+            [callback]="deleteColumn"
+            [param]="{id: column.id}"
+            [id]="column.id"
+          ></app-delete>
+
+          <app-create-task-modal [columnId]="column.id"></app-create-task-modal>
+        </div>
+      </div>
+
+      <div *ngIf="titleIsEditable">
+        <input
+          type="text"
+          class="form-control no-border"
+          [value]="column.title"
+          (change)="updateTitleHandler($event)"
+        />
+        <button class="btn" (click)="updateTitle()">
+          <i class="bi bi-check-circle"></i>
+        </button>
+        <button class="btn" (click)="cancelUpdate()">
+          <i class="bi bi-x-circle"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

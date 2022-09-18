@@ -1,0 +1,41 @@
+<form #newColumnForm="ngForm" (ngSubmit)="onSubmit(newColumnForm.value)">
+  <div
+    class="modal fade"
+    id="columnModal"
+    tabindex="-1"
+    aria-labelledby="columnModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-body">
+          <label for="title" class="form-label">{{'COLUMN_TITLE' | translate}}</label>
+          <input
+            type="text"
+            class="form-control"
+            id="validationCustom01"
+            name="title"
+            [(ngModel)]="newColumn.title"
+            required
+          />
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+           {{'CANCEL' | translate}}
+          </button>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            data-bs-dismiss="modal"
+          >
+          {{'CREATE' | translate}}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,73 @@
+<div class="container">
+  <form
+    #updateForm="ngForm"
+    (ngSubmit)="onSubmit(updateForm.value)"
+    class="my-5 d-flex align-items-center flex-column needs-validation"
+  >
+    <div class="col-md-4">
+      <label for="name" class="form-label">{{
+        "FIRST_NAME" | translate
+      }}</label>
+      <input
+        type="text"
+        class="form-control"
+        id="validationCustom01"
+        name="name"
+        [(ngModel)]="user.name"
+        required
+      />
+      <div class="valid-feedback">{{ "LOOKS_GOOD" | translate }}</div>
+    </div>
+
+    <div class="col-md-4 mt-5">
+      <label for="login" class="form-label">{{
+        "USER_NAME" | translate
+      }}</label>
+      <div class="input-group has-validation">
+        <input
+          type="text"
+          class="form-control"
+          id="validationCustomlogin"
+          [(ngModel)]="user.login"
+          aria-describedby="inputGroupPrepend"
+          name="login"
+          required
+        />
+        <div class="invalid-feedback">{{ "CHOOSE_USERNAME" | translate }}</div>
+      </div>
+    </div>
+    <div class="col-md-4 mt-5">
+      <label for="validationCustom02" class="form-label">{{
+        "PASSWORD" | translate
+      }}</label>
+      <input
+        type="text"
+        class="form-control"
+        id="validationCustom02"
+        [(ngModel)]="user.password"
+        name="password"
+        required
+      />
+      <div class="valid-feedback">{{ "LOOKS_GOOD" | translate }}</div>
+    </div>
+
+    <div class="col-4 my-5">
+      <button type="submit" class="btn btn-primary">
+        {{ "UPDATE" | translate }}
+      </button>
+      <a
+        class="btn btn-primary"
+        data-bs-toggle="modal"
+        [attr.data-bs-target]="'#staticBackdrop'"
+      >
+        {{ "DELETE" | translate }}
+      </a>
+      <app-delete
+        [message]="['DELETE_USER_CONFIRMATION' | translate]"
+        [callback]="deleteUser"
+        [param]="{}"
+        [id]=""
+      ></app-delete>
+    </div>
+  </form>
+</div>
