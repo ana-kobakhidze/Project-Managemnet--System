@@ -26,7 +26,7 @@ export class AllBoardsComponent implements OnInit {
     private store: Store<AppState>
   ) {
     this.getState = this.store.select("boardState"); 
-    this.imgSources = ['../../assets/images/board_1.svg','../../assets/images/board_2.svg','../../assets/images/board_3.svg','../../assets/images/board_4.svg','../../assets/images/board_5.svg','../../assets/images/board_6.svg','../../assets/images/board_7.svg','../../assets/images/board_8.svg']
+    this.imgSources = ['./assets/images/board_1.svg','./assets/images/board_2.svg','./assets/images/board_3.svg','./assets/images/board_4.svg','./assets/images/board_5.svg','./assets/images/board_6.svg','./assets/images/board_7.svg','~/assets/images/board_8.svg']
   }
 
   ngOnInit(): void {
