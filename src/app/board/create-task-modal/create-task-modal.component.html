@@ -1,4 +1,8 @@
-<form #newTaskForm="ngForm" (ngSubmit)="onSubmit(newTaskForm.value)">
+<form
+  #newTaskForm="ngForm"
+  class="needs-validation"
+  (ngSubmit)="onSubmit(newTaskForm.value)"
+>
   <div
     class="modal fade"
     id="taskModal{{ columnId }}"
@@ -8,31 +12,77 @@
   >
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title fw-bold text-dark fs-5 mb-0">
+            {{ "CREATE_NEW_TASK" | translate }}
+          </h5>
+        </div>
         <div class="modal-body">
           <div class="modal-item">
-            <label for="title" class="form-label">{{'TASK_TITLE' | translate}}</label>
+            <label
+              for="title"
+              class="form-label text-capitalize text-dark fs-6 fw-normal"
+              >{{ "TASK_TITLE" | translate }}</label
+            >
             <input
               type="text"
               class="form-control"
               id="validationCustom01"
               name="title"
+              #title="ngModel"
               [(ngModel)]="newTask.title"
               required
             />
+            <div class="valid-feedback">{{ "LOOKS_GOOD" | translate }}</div>
+            <div
+              class="invalid-feedback"
+              *ngIf="title.invalid && (title.dirty || title.touched)"
+              class="alert mb-0 pb-0"
+            >
+              <div
+                class="text-danger text-capitalize"
+                *ngIf="title.errors?.['required']"
+              >
+                {{ "TITLE_REQUIRED" | translate }}
+              </div>
+            </div>
           </div>
+
           <div class="modal-item">
-            <label for="description" class="form-label"
-              >{{'TASK_DESCRIPTION' | translate}}</label
+            <label
+              for="description"
+              class="form-label text-capitalize text-dark fs-6 fw-normal mt-3"
+              >{{ "TASK_DESCRIPTION" | translate }}</label
             >
             <input
               type="text"
               class="form-control"
               id="validationCustom01"
               name="description"
+              #description="ngModel"
               [(ngModel)]="newTask.description"
               required
             />
+            <div class="valid-feedback">{{ "LOOKS_GOOD" | translate }}</div>
+            <div
+              class="invalid-feedback"
+              *ngIf="
+                description.invalid &&
+                (description.dirty || description.touched)
+              "
+              class="alert mb-0 pb-0"
+            >
+              <div
+                class="text-danger text-capitalize"
+                *ngIf="description.errors?.['required']"
+              >
+                {{ "DESCRIPTION_REQUIRED" | translate }}
+              </div>
+
+            </div>
+
           </div>
+
         </div>
         <div class="modal-footer">
           <button
@@ -40,14 +90,15 @@
             class="btn btn-secondary"
             data-bs-dismiss="modal"
           >
-          {{'CANCEL' | translate}}
+            {{ "CANCEL" | translate }}
           </button>
           <button
             type="submit"
-            class="btn btn-primary"
+            class="btn btn-warning"
+            [disabled]="!newTaskForm.valid"
             data-bs-dismiss="modal"
           >
-          {{'CREATE' | translate}}
+            {{ "CREATE" | translate }}
           </button>
         </div>
       </div>

@@ -1,9 +1,15 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
+import { Store } from '@ngrx/store';
+import { AppState} from '../store/app.states';
+import { Observable } from 'rxjs';
+import { GetAllStarted,UpdateStarted } from '../store/actions/column.actions'
 import { ColumnsService } from '../columns.service';
 import { Column } from '../models/column.model';
-import { BoardsService } from '../boards.service';
-import { Tasks } from '../models/tasks.model';
-import { ActivatedRoute } from '@angular/router';
+import { Task } from '../models/task.model';
+import { Router, ActivatedRoute } from '@angular/router';
+
+import {CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { Add } from '../store/actions/loader.actions';
 
 
 @Component({
@@ -13,18 +19,21 @@ import { ActivatedRoute } from '@angular/router';
   providers: [ColumnsService],
 })
 export class BoardComponent implements OnInit {
+  getState: Observable<any>;
   columns: Column[] = [];
   boardId: string;
-  tasks: Tasks[];
+  tasks: Task[];
+  allColumnIds: string[];
 
   constructor(
-    private columnsService: ColumnsService,
-    private activeRoute : ActivatedRoute
+    private activeRoute : ActivatedRoute,
+    private route: Router,
+    private store: Store<AppState>
   ) {
     this.activeRoute.paramMap.subscribe( param => {
       this.boardId = param.get('id')
      });
-
+     this.getState = this.store.select("columnState"); 
     this.tasks = [];
   }
 
@@ -33,12 +42,41 @@ export class BoardComponent implements OnInit {
   }
 
   fetchColumns(isRefetch: boolean): void {
-    this.columnsService.getColumns().subscribe((response) => {
-      this.columns = response.sort((a, b) => (a.order > b.order ? 1 : -1));
-      if(isRefetch){
-        window.location.reload();
-      }
+    this.store.dispatch(new GetAllStarted(this.boardId));
+    this.store.dispatch(new Add(true));
+    this.getState.subscribe((state) => {
+        this.columns = state.columns.sort((a, b) => (a.order > b.order ? 1 : -1));
+        this.allColumnIds = this.columns.map(column => column.id);
     });
   }
+  onDrop(event: CdkDragDrop<Column[]>){
+    if(event.previousContainer === event.container){
+      moveItemInArray(
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex 
+        );
+    }else{
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex, 
+        event.currentIndex
+      )
+    }
+
+   let movedColumn = event.container.data[event.currentIndex] 
+   movedColumn.order = ++event.currentIndex;
+   this.store.dispatch(new UpdateStarted(movedColumn, this.boardId));
+
+   let swappedColumn = event.container.data[event.previousIndex];
+   swappedColumn.order = ++event.previousIndex
+   this.store.dispatch(new UpdateStarted(swappedColumn, this.boardId));
+   this.store.dispatch(new Add(true));
+   
+}
+goBackToBoards(){
+this.route.navigateByUrl('/boards');
+}
 
 }

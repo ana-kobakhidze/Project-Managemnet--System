@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { AuthService } from '../auth-service.service';
+import { AuthService } from '../auth.service';
 import { User } from '../models/user.model';
-import { AppState, selectAuthState } from '../store/app.states';
-import {LogIn} from '../store/user.actions'
+import { AppState} from '../store/app.states';
+import {LogIn} from '../store/actions/user.actions'
+import { Add } from '../store/actions/loader.actions';
 
 @Component({
   selector: 'app-log-in-form',
@@ -21,7 +22,7 @@ export class LogInFormComponent implements OnInit {
   constructor(private service: AuthService,
      private route: Router,
      private store: Store<AppState>) {
-      this.getState = this.store.select(selectAuthState);
+      this.getState = this.store.select("authState");
       }
 
   ngOnInit(): void {
@@ -31,15 +32,7 @@ export class LogInFormComponent implements OnInit {
   }
   
   onSubmit(submitedUser: User){
-    // this.service.logInUser(submitedUser).subscribe(response=> {
-    //   const payload = {
-    //     login: submitedUser.login,
-    //     password: submitedUser.password,
-    //     token: response.token
-    //   };
-    // });
     this.store.dispatch(new LogIn(submitedUser));  
-
-    // this.route.navigate(['boards']);
+    this.store.dispatch(new Add(true))
   }
 }

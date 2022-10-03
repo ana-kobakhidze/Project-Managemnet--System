@@ -1,81 +1,48 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Tasks } from 'src/app/models/tasks.model';
+import { Task } from 'src/app/models/task.model';
 import { TasksService } from 'src/app/tasks.service';
-import { BoardsService } from 'src/app/boards.service';
-import { DndDropEvent } from 'ngx-drag-drop';
+import { BoardService } from 'src/app/board.service';
 import { ColumnsService } from 'src/app/columns.service';
 import { Column } from 'src/app/models/column.model';
+import { Store } from '@ngrx/store';
+import { AppState} from '../../../store/app.states';
+import { Observable } from 'rxjs';
+import { DeleteStarted, UpdateStarted } from '../../../store/actions/task.actions';
+import { ActivatedRoute } from '@angular/router';
+import { Add } from 'src/app/store/actions/loader.actions';
 
 @Component({
   selector: 'app-task',
   templateUrl: './task.component.html',
   styleUrls: ['./task.component.css'],
-  providers: [TasksService, BoardsService, ColumnsService],
+  providers: [TasksService, BoardService, ColumnsService],
 })
 export class TaskComponent implements OnInit {
-  @Input() task: Tasks;
+  getState: Observable<any>;
+  @Input() task: Task;
   @Input() callback: Function;
   @Input() column: Column;
-  tasks: Tasks[];
+  tasks: Task[];
   boardId: string;
 
-  draggable = {
-    data: '',
-    effectAllowed: 'all',
-    isExternal: true,
-    dropEffect: 'move',
-    disable: false,
-    handle: false,
-  };
 
   constructor(
-    private boardService: BoardsService,
-    private columnService: ColumnsService,
-    private taskService: TasksService
+    private activeRoute : ActivatedRoute,
+    private store: Store<AppState>
   ) {
-    this.boardId = this.boardService.getBoardId();
+    this.activeRoute.paramMap.subscribe( param => {
+      this.boardId = param.get('id')
+     });
+    this.getState = this.store.select("taskState");
   }
 
   ngOnInit(): void {
-    this.draggable = {
-      data: JSON.stringify(this.task),
-      effectAllowed: 'all',
-      isExternal: true,
-      dropEffect: 'copy',
-      disable: false,
-      handle: false,
-    };
-  }
-  public deleteTask = ({taskId, columnId}) =>{
-    this.taskService
-      .deleteTask(columnId, taskId)
-      .subscribe(()=> window.location.reload());
-  }
-
-  onDragStart(event: DragEvent) {
-    event.dataTransfer.setData('id', JSON.stringify(this.task));
-
-    // console.log("drag started", JSON.stringify(event, null, 2));
-  }
-
-  onDragover(event: DragEvent): Boolean {
-    if (event.preventDefault) {
-      event.preventDefault();
-    }
-
-    return false;
-    // console.log("dragover", JSON.stringify(event, null, 2));
-  }
-  onDrop(event: DndDropEvent) {
-    const parsedTask = JSON.parse(event.data);
-    const oldColId = parsedTask.columnId;
-    parsedTask.order = this.task.order;
-    parsedTask.columnId = this.column.id;
-
-    this.taskService.updateTasks(parsedTask, oldColId).subscribe((res) => {
-      this.callback(true);
-      window.location.reload();
-    });
 
   }
+  public deleteTask = ({columnId, taskId}) =>{
+    this.store.dispatch(new DeleteStarted(this.boardId, columnId, taskId));
+    this.store.dispatch(new Add(true));
+  }
+
+
 }

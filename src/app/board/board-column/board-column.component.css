@@ -1,0 +1,16 @@
+.addNewCol{
+    padding-right: 8rem;
+}
+
+.addNewCol:hover{
+    font-weight: bolder;
+}
+.draggableCards{
+    margin-bottom:10px;
+    user-select: none;
+}
+
+.draggableCards:hover{
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    cursor:grab;
+}

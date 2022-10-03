@@ -1,5 +1,8 @@
-export class File{
+export class FileModel{
    public taskId: string;
-   public filename: string;
-   public fileSize: string;
+   public file: File;
+   constructor(taskId: string, uploadedFile: File){
+      this.taskId = taskId;
+      this.file = uploadedFile;
+   }
 }

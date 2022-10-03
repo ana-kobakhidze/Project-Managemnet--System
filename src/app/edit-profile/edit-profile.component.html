@@ -51,12 +51,12 @@
       <div class="valid-feedback">{{ "LOOKS_GOOD" | translate }}</div>
     </div>
 
-    <div class="col-4 my-5">
-      <button type="submit" class="btn btn-primary">
+    <div class="col-4 my-5 d-flex justify-content-end">
+      <button type="submit" class="btn btn-warning btn-outline-dark fw-bold me-5">
         {{ "UPDATE" | translate }}
       </button>
       <a
-        class="btn btn-primary"
+        class="btn btn-light btn-outline-dark fw-bold"
         data-bs-toggle="modal"
         [attr.data-bs-target]="'#staticBackdrop'"
       >

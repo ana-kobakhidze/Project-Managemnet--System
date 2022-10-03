@@ -21,9 +21,9 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <!-- left links and localization -->
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0 mb-5">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 mb-5 header-list">
       <!-- 1.localization link -->  
-        <li class="nav-item dropdown" >
+        <li *ngIf="isAuthorized" class="nav-item dropdown" >
           <a
           class="nav-link dropdown-toggle text-dark"
           role="button"
@@ -38,6 +38,10 @@
             <li ><a class="dropdown-item " (click)="handleLanguageChange('ge')">Geo</a></li>
           </ul>
         </li>
+      <!-- 2.About link -->  
+        <li class="nav-item " [routerLinkActive]="'active'" routerLinkActiveOptions = "{exact: true}">
+          <a class="nav-link text-dark " aria-current="page" [routerLink]="['about']">{{'ABOUT' | translate}}</a>
+        </li>
       <!-- 2.Boards link -->   
         <li class="nav-item " [routerLinkActive]="'active'" routerLinkActiveOptions = "{exact: true}">
           <a class="nav-link text-dark " aria-current="page" [routerLink]="['boards']">{{'BOARDS' | translate}}</a>
@@ -45,12 +49,12 @@
       <!-- 3.Create new link -->
         <li class="nav-item">
           <a class="nav-link text-dark" role="button"  data-bs-toggle="modal"
-          data-bs-target="#exampleModal" [routerLink]="['boards']" *ngIf="isAuthorized">{{'CREATE_NEW' | translate}}</a>
+          data-bs-target="#upsert" [routerLink]="['boards']" *ngIf="isAuthorized">{{'CREATE_NEW' | translate}}</a>
         </li>
 
         </ul>
          <!-- 4.Sign-in sign-out buttons -->
-        <ul class="nav d-flex justify-content-between">
+        <ul class="nav d-flex justify-content-between login-list">
           <li class="nav-item me-3" [routerLinkActive]="'active'" routerLinkActiveOptions = "{exact: true}">
             <a class="text-decoration-none text-dark my-2 my-sm-0" [routerLink]="['edit-profile']" *ngIf="isAuthorized">{{'EDIT_PROFILE' | translate}}</a>
           </li>

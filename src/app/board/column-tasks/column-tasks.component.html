@@ -1,6 +1,17 @@
-<div class="card-body" *ngFor="let task of tasks"
+<div
+  cdkDropList
+  class="taskList"
+  id="{{columnId}}"
+  (cdkDropListDropped)="onDrop($event)"
+  [cdkDropListData]="tasks"
+  [cdkDropListConnectedTo]="allColumnIds"
 >
-<app-task [callback]="fetchTasks" [column]='column' [task]="task">
-
-</app-task>
+  <div 
+    cdkDrag
+    [cdkDragData]="task"
+    class="card-body"
+    *ngFor="let task of tasks">
+    <app-task [callback]="fetchTasks" [column]="column" [task]="task">
+    </app-task>
+  </div>
 </div>

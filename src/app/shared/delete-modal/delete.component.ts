@@ -1,15 +1,15 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { BoardsService } from '../../boards.service';
+import { BoardService } from '../../board.service';
 import { ColumnsService } from '../../columns.service';
 import { TasksService } from '../../tasks.service';
-import { AuthService } from '../../auth-service.service';
+import { AuthService } from '../../auth.service';
 
 
 @Component({
   selector: 'app-delete',
   templateUrl: './delete.component.html',
   styleUrls: ['./delete.component.css'],
-  providers: [AuthService, BoardsService, ColumnsService, TasksService]
+  providers: [AuthService, BoardService, ColumnsService, TasksService]
 })
 export class DeleteComponent implements OnInit {
 
@@ -20,7 +20,7 @@ export class DeleteComponent implements OnInit {
 
   constructor(
     private authService : AuthService,
-    private boardService : BoardsService,
+    private boardService : BoardService,
     private columnService : ColumnsService,
     private taskService : TasksService) {
    }

@@ -8,7 +8,7 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">
+        <h5 class="modal-title fw-bold text-dark fs-4" id="staticBackdropLabel">
           {{'ARE_YOU_SURE' | translate}}
         </h5>
         <button
@@ -18,11 +18,11 @@
           aria-label="Close"
         ></button>
       </div>
-      <div class="modal-body">{{message}}</div>
+      <div class="modal-body text-dark fs-6 fw-normal mb-0">{{message}}</div>
       <div class="modal-footer">
         <button
           type="button"
-          class="btn btn-secondary"
+          class="btn btn-warning"
           data-bs-dismiss="modal"
         >
         {{'CLOSE' | translate}}

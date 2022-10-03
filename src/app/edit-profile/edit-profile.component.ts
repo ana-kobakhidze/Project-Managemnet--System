@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../auth-service.service';
+import { AuthService } from '../auth.service';
 import { User } from '../models/user.model';
 import { Store } from '@ngrx/store';
-import { LogOut} from 'src/app/store/user.actions';
+import { LogOut, LogOutStarted} from 'src/app/store/actions/user.actions';
 import { AppState } from '../store/app.states';
 
 @Component({
@@ -31,7 +31,7 @@ export class EditProfileComponent implements OnInit {
   }
   public deleteUser = () => {
      this.service.deleteUser().subscribe(response => {
-      this.store.dispatch(new LogOut());
+      this.store.dispatch(new LogOutStarted());
       this.route.navigate(['sign-in']);
      });
 

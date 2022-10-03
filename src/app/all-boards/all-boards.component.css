@@ -1,3 +1,19 @@
 .boards{
     cursor: pointer;
 }
+.scroll{
+    overflow: scroll;
+}
+
+.img-box{
+    width: 100%;
+    height: auto;
+
+}
+.img-box:hover{
+    transform: translate(-14px, 7px) rotate(350deg) scale(1.1);
+    cursor: pointer;
+}
+.text:hover{
+    font-weight: bold;
+}

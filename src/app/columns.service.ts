@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { Column } from './models/column.model';
-import { AuthService } from './auth-service.service';
+import { AuthService } from './auth.service';
 import { ActivatedRoute } from '@angular/router';
 import { environment } from 'src/environments/environment';
 
@@ -25,7 +25,7 @@ export class ColumnsService {
       this.baseUrl = environment.apiUrl;
     });
   }
-  createColumn(model: Column): Observable<Column> {
+  createColumn(model: Column, boardId: string): Observable<Column> {
     const httpOptions = {
       headers: new HttpHeaders({
         Accept: 'application/json',
@@ -34,12 +34,12 @@ export class ColumnsService {
       }),
     };
     return this.http.post<Column>(
-      this.baseUrl + '/boards/' + this.boardId + '/columns',
+      this.baseUrl + '/boards/' + boardId + '/columns',
       model,
       httpOptions
     );
   }
-  getColumns(): Observable<Column[]> {
+  getColumns(id): Observable<Column[]> {
     const httpOptions = {
       headers: new HttpHeaders({
         Accept: 'application/json',
@@ -47,14 +47,28 @@ export class ColumnsService {
       }),
     };
     return this.http.get<Column[]>(
-      this.baseUrl + '/boards/' + this.boardId + '/columns',
+      this.baseUrl + '/boards/' + id + '/columns',
       httpOptions
     );
   }
   getCurrentColumn(): string {
     return localStorage.getItem('column-id');
   }
-  deleteColumn(columnId: string): Observable<unknown> {
+
+  getColumn(id: string): Observable<Column> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Accept: '*/*',
+        Authorization: 'Bearer ' + this.authToken,
+      }),
+    };
+    return this.http.get<Column>(
+      this.baseUrl + '/boards/' + this.boardId + '/columns/' + id,
+      httpOptions
+    );
+  }
+
+  deleteColumn(columnId: string, boardId: string): Observable<unknown> {
     const httpOptions = {
       headers: new HttpHeaders({
         Accept: '*/*',
@@ -62,11 +76,11 @@ export class ColumnsService {
       }),
     };
     return this.http.delete(
-      this.baseUrl + '/boards/' + this.boardId + '/columns/' + columnId,
+      this.baseUrl + '/boards/' + boardId + '/columns/' + columnId,
       httpOptions
     );
   }
-  updateColumn(model: Column): Observable<Column> {
+  updateColumn(model: Column, boardId: string): Observable<Column> {
     let request = {
       title: model.title,
       order: model.order,
@@ -79,7 +93,7 @@ export class ColumnsService {
       }),
     };
     return this.http.put<Column>(
-      this.baseUrl + '/boards/' + this.boardId + '/columns/' + model.id,
+      this.baseUrl + '/boards/' + boardId + '/columns/' + model.id,
       request,
       httpOptions
     );

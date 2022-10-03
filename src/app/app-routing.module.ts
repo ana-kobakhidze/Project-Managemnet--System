@@ -7,8 +7,10 @@ import { BoardComponent } from './board/board.component';
 import { LogInFormComponent } from './log-in-form/log-in-form.component';
 import { SignUpFormComponent } from './sign-up-form/sign-up-form.component';
 import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.component';
+import { AboutPageComponent } from './about-page/about-page.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { AuthGuardService as AuthGuard } from './auth-guard.service';
+
 
 const routes: Routes = [
   { path: '', redirectTo:"home", pathMatch:'full' },
@@ -17,6 +19,7 @@ const routes: Routes = [
   { path: 'board/:id', component: BoardComponent, canActivate: [AuthGuard]},
   { path: 'sign-in', component: LogInFormComponent},
   { path: 'sign-up', component: SignUpFormComponent},
+  { path: 'about', component: AboutPageComponent},
   { path:'edit-profile', component: EditProfileComponent, canActivate: [AuthGuard]},
   { path: '**', component:PageNotFoundComponent}
 

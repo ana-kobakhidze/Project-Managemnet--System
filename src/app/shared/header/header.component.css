@@ -2,3 +2,17 @@
 border-bottom: 4px solid #FFC849;
     
 }
+.dropdown-item:hover{
+    background-color: transparent;
+    border-bottom: 4px solid #FFC849;
+    cursor: pointer;
+}
+
+.header-list li,
+.login-list li{
+    font-size: 16px;
+}
+.header-list li:hover,
+.login-list li:hover{
+    border-bottom: 4px solid #FFC849;
+}

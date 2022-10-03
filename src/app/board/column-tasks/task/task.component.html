@@ -1,33 +1,38 @@
-<div class="col-3" style="width: 100%"
-dndDropzone
-[dndEffectAllowed]="draggable.effectAllowed"
-[dndDraggable]="draggable.data"
-(dndStart)="onDragStart($event)"
-(dndDrop)="onDrop($event)"
-(dndDragover)="onDragover($event)"
->
-    <h3>{{ task.title }}</h3>
-    <p>{{ task.description }}</p>
-    <hr />
-    <div class="col d-flex">
-      <button
-        class="btn btn-lg"
-        data-bs-toggle="modal"
-        [attr.data-bs-target]="'#updateTaskModal' + task.id"
-      >
-        <i class="bi bi-pencil"></i>
-      </button>
-      <app-update-task-modal [task]="task"></app-update-task-modal>
-      <button class="btn btn-lg" 
+<div class="col-3" style="width: 100%">
+  <div class="d-flex justify-content-between align-items-center px-2">
+    <div>
+      <h3>{{ task.title }}</h3>
+      <p>{{ task.description }}</p>
+    </div>
+
+  </div>
+
+  <hr/>
+
+  <div class="col d-flex">
+    <button
+      class="btn btn-lg"
       data-bs-toggle="modal"
-      [attr.data-bs-target]="'#staticBackdrop' + task.id">
-        <i class="bi bi-trash"></i>
-      </button>
-      <app-delete
+      [attr.data-bs-target]="'#updateTaskModal' + task.id"
+    >
+      <i class="bi bi-pencil"></i>
+    </button>
+    <app-update-task-modal
+      [columnId]="column.id"
+      [task]="task"
+    ></app-update-task-modal>
+    <button
+      class="btn btn-lg"
+      data-bs-toggle="modal"
+      [attr.data-bs-target]="'#staticBackdrop' + task.id"
+    >
+      <i class="bi bi-trash"></i>
+    </button>
+    <app-delete
       [message]="['DELETE_TASK_CONFIRMATION' | translate]"
       [callback]="deleteTask"
-      [param]="{taskId: task.id, columnId: column.id}"
+      [param]="{ taskId: task.id, columnId: column.id }"
       [id]="task.id"
     ></app-delete>
-    </div>
   </div>
+</div>

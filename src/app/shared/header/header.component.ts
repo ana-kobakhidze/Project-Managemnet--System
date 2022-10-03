@@ -3,10 +3,10 @@ import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 
-import { AppState, selectAuthState } from '../../store/app.states';
-import { LogOut, SyncState } from 'src/app/store/user.actions';
-import { initialState, State } from 'src/app/store/reducers/auth.reducers';
+import { AppState } from '../../store/app.states';
+import { LogOut, LogOutStarted, SyncState } from 'src/app/store/actions/user.actions';
 import { TranslateService } from '@ngx-translate/core';
+import { GetAllStarted } from 'src/app/store/actions/board.actions';
 
 @Component({
   selector: 'app-header',
@@ -21,7 +21,7 @@ export class HeaderComponent implements OnInit {
     private store: Store<AppState>,
     public translate: TranslateService
   ) {
-    this.getState = this.store.select(selectAuthState);
+    this.getState = this.store.select("authState");
   }
 
   ngOnInit(): void {
@@ -31,6 +31,7 @@ export class HeaderComponent implements OnInit {
         if (storedState && storedState.isAuthenticated) {
           this.store.dispatch(new SyncState(storedState));
           this.isAuthorized = storedState.isAuthenticated;
+          this.store.dispatch(new GetAllStarted());
         } else {
           this.isAuthorized = false;
         }
@@ -44,7 +45,7 @@ export class HeaderComponent implements OnInit {
   }
 
   logOut(): void {
-    this.store.dispatch(new LogOut());
+    this.store.dispatch(new LogOutStarted());
   }
 
   handleLanguageChange(lang: string): void {

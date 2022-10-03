@@ -3,11 +3,12 @@
   <form
     #signUpForm="ngForm"
     (ngSubmit)="onSubmit(signUpForm.value)"
-    class="my-5 d-flex align-items-center flex-column needs-validation"
+    class="mt-5 d-flex align-items-center flex-column needs-validation"
     ngNativeValidate>
 
 <div class="col-md-4">
-      <label for="name" class="form-label">{{'FIRST_NAME' | translate}}</label>
+      <label for="validationCustom01" class="form-label">{{'FIRST_NAME' | translate}}</label>
+      <div class="has-validation">
       <input
         type="text"
         class="form-control"
@@ -20,7 +21,7 @@
       />
       <div class="valid-feedback">{{'LOOKS_GOOD' | translate}}</div>
       <div class="invalid-feedback " *ngIf="name.invalid && (name.dirty || name.touched)"
-      class="alert">
+      class="alert mb-0 pb-0">
       <div class="text-danger" *ngIf="name.errors?.['required']">
         {{'NAME_REQUIRED' | translate}}
       </div>
@@ -28,36 +29,38 @@
         {{'NAME_4CHARS' | translate}}
       </div>
       </div>
+    </div>
  </div>
     
 
- <div class="col-md-4 mt-5">
-      <label for="login" class="form-label">{{'USER_NAME' | translate}}</label>
-      <div class="input-group has-validation">
+ <div class="col-md-4">
+      <label for="validationCustom02" class="form-label mt-3">{{'USER_NAME' | translate}}</label>
+      <div class="has-validation">
         <input
           type="text"
           class="form-control"
-          id="validationCustomlogin"
+          id="validationCustom02"
           [(ngModel)]="userModel.login"
           name="login"
           #login="ngModel"
           required
         />
         <div class="invalid-feedback " *ngIf="login.invalid && (login.dirty || login.touched)"
-        class="alert">
+        class="alert mb-0 pb-0">
         <div class="text-danger" *ngIf="login.errors?.['required']">
           {{'LOGIN_REQUIRED' | translate}}
         </div>
-        </div>
+      </div>
+      </div>
  </div>
 
-<div class="col-md-4 mt-5">
-      <label for="validationCustom02" class="form-label">{{'PASSWORD' | translate}}</label>
-      <div class="input-group has-validation">
+<div class="col-md-4">
+      <label for="validationCustom03" class="form-label mt-3">{{'PASSWORD' | translate}}</label>
+      <div class="has-validation">
       <input
         type="text"
         class="form-control"
-        id="validationCustom02"
+        id="validationCustom03"
         [(ngModel)]="userModel.password"
         minlength="6"
         name="password"
@@ -66,7 +69,7 @@
       />
       <div class="valid-feedback">{{"LOOKS_GOOD" | translate}}</div>
       <div class="invalid-feedback" *ngIf="password.invalid && (password.dirty || password.touched)"
-      class="alert">
+      class="alert mb-0 pb-0">
       <div class="text-danger" *ngIf="password.errors?.['required']">
         {{'PASSWORD_REQUIRED' | translate}}
       </div>
@@ -77,11 +80,12 @@
   </div>
 </div>
 
-    <div class="col-4 my-5">
-      <button class="btn btn-primary" type="submit" 
+    <div class="col-4 mt-3">
+      <button class="btn btn-warning btn-outline-dark fw-normal" type="submit" 
+
       [disabled]="!signUpForm.valid"
-      (click)="validate()">{{'SIGN_UP' | translate}}</button>
+      (click)="validate($event)">{{'SIGN_UP' | translate}}</button>
     </div>
-  </div>
+
   </form>
 </div>

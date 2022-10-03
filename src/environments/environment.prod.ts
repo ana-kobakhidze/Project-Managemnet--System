@@ -1,4 +1,4 @@
 export const environment = {
-  production: true,
-  apiUrl: 'https://pmasearch.herokuapp.com'
+  production: false,
+   apiUrl: 'https://pmasearch.herokuapp.com'
 };

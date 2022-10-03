@@ -1,15 +1,15 @@
-<form #newBoardForm="ngForm" (ngSubmit)="onSubmit(newBoardForm.value)">
+<form #newBoardForm="ngForm" class="needs-validation" (ngSubmit)="onSubmit(newBoardForm.value)">
   <div
     class="modal fade"
-    id="exampleModal"
+    id="upsert{{ id }}"
     tabindex="-1"
-    aria-labelledby="exampleModalLabel"
+    aria-labelledby="upsertLabel"
     aria-hidden="true"
   >
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">
+          <h5 class="modal-title fw-bold text-dark fs-4 mb-0" id="upsertLabel">
             {{'ADD_NEW_BOARD' | translate}}
           </h5>
           <button
@@ -27,10 +27,18 @@
             class="form-control"
             id="validationCustom01"
             name="title"
-            [(ngModel)]="newBoard.title"
+            #title="ngModel"
+            [(ngModel)]="board.title"
             required
           />
-          <label  for="description" class="form-label"
+          <div class="valid-feedback">{{"LOOKS_GOOD" | translate}}</div>
+          <div class="invalid-feedback" *ngIf="title.invalid && (title.dirty || title.touched)"
+          class="alert mb-0 pb-0">
+          <div class="text-danger text-capitalize" *ngIf="title.errors?.['required']">
+          {{'TITLE_REQUIRED' | translate}}
+          </div>
+         </div>
+          <label  for="description" class="form-label mt-3"
             >{{'BOARD_DESCRIPTION' | translate}}</label
           >
           <input
@@ -38,9 +46,17 @@
             class="form-control"
             id="validationCustom01"
             name="description"
-            [(ngModel)]="newBoard.description"
+            #description="ngModel"
+            [(ngModel)]="board.description"
             required
           />
+          <div class="valid-feedback">{{"LOOKS_GOOD" | translate}}</div>
+          <div class="invalid-feedback" *ngIf="description.invalid && (description.dirty || description.touched)"
+          class="alert mb-0 pb-0">
+          <div class="text-danger text-capitalize" *ngIf="description.errors?.['required']">
+          {{'DESCRIPTION_REQUIRED' | translate}}
+          </div>
+        </div>
         </div>
         <div class="modal-footer">
           <button
@@ -52,9 +68,9 @@
           {{'CLOSE' | translate}}
           </button>
           <button
-           
+          [disabled]="!newBoardForm.valid"
             type="submit"
-            class="btn btn-primary"
+            class="btn btn-warning"
             data-bs-dismiss="modal"
           >
           {{'CREATE' | translate}}

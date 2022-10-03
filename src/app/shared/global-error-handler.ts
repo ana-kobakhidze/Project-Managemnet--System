@@ -10,8 +10,13 @@ export class GlobalErrorHandler implements ErrorHandler {
     handleError(error : any) {
         let message = "";
         if(typeof error === 'object'){
+          if(error.error && error.error.message){
             message = error.error.message;
-            
+          }
+          else{
+            console.error(error);
+            message='Something went wrong, please try again later';
+          }
         } else {
             message = error;
         }

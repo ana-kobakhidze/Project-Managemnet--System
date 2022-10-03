@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { AuthService } from './auth-service.service';
-import { Tasks } from './models/tasks.model';
+import { AuthService } from './auth.service';
+import { Task } from './models/task.model';
 import { ActivatedRoute } from '@angular/router';
 import { environment } from 'src/environments/environment.prod';
+import { Store } from '@ngrx/store';
+import { AppState} from './store/app.states';
 
 @Injectable({
   providedIn: 'root',
@@ -14,15 +16,18 @@ export class TasksService {
   userId: string;
   boardId: string;
   baseUrl: string;
+  getState: Observable<any>;
 
   constructor(
     private http: HttpClient,
     private auth: AuthService,
-    private activeRoute: ActivatedRoute
+    private activeRoute: ActivatedRoute,
+    private store: Store<AppState>
   ) {
-    this.authToken = auth.getAuthToken();
-    auth.getUser().subscribe(usr=>{
-      this.userId = usr.id;
+    this.getState = this.store.select("authState");
+
+    this.getState.subscribe((state) => {
+      this.userId = state.user?.id
     });
     this.activeRoute.paramMap.subscribe((param) => {
       this.boardId = param.get('id');
@@ -30,7 +35,8 @@ export class TasksService {
     this.baseUrl = environment.apiUrl;
   }
 
-  createTask(model: Tasks, columnId : string): Observable<Tasks>{
+  createTask(model: Task, boardId: string, columnId : string): Observable<Task>{
+
     let request = {
       title: model.title,
       description: model.description,
@@ -43,27 +49,28 @@ export class TasksService {
         'Content-Type': 'application/json',
       })
     };
-    return this.http.post<Tasks>(this.baseUrl + '/boards/' + this.boardId + '/columns/' + columnId + '/tasks', request, httpOptions)
+    return this.http.post<Task>(this.baseUrl + '/boards/' + boardId + '/columns/' + columnId + '/tasks', request, httpOptions)
   };
   
-  getTasks(columnId : String) : Observable<Tasks[]>{
-    const httpOptions ={
+  getTasks(boardId: String, columnId : String ) : Observable<Task[]>{
+    const httpOptions = {
       headers: new HttpHeaders({
         'accept':'application/json',
         'Authorization': 'Bearer ' + this.authToken,
       })
     };
-    return this.http.get<Tasks[]>(this.baseUrl + '/boards/' + this.boardId + '/columns/' + columnId + '/tasks', httpOptions)
+    return this.http.get<Task[]>(this.baseUrl + '/boards/' + boardId + '/columns/' + columnId + '/tasks', httpOptions)
   };
-  updateTasks(model: Tasks, columnId?:string): Observable<Tasks>{
-    let request = {
+  updateTasks(model: Task, boardId:string, columnId: string): Observable<Task>{
+    let request= {
       title: model.title,
       order: model.order,
       description: model.description,
       userId: model.userId,
       boardId: model.boardId,
-      columnId: model.columnId
-    }
+      columnId: model.columnId,
+   
+    };
     const httpOptions = {
       headers: new HttpHeaders({
         'accept':'application/json',
@@ -71,16 +78,27 @@ export class TasksService {
         'Content-Type': 'application/json',
       })
     };
-    const colId = !columnId ? model.columnId : columnId;
-    return this.http.put<Tasks>(this.baseUrl + '/boards/' + model.boardId + '/columns/' + colId + '/tasks/'+ model.id, request, httpOptions)
+  
+    return this.http.put<Task>(this.baseUrl + '/boards/' + model.boardId + '/columns/' + (model.oldColumnId === "" || model.oldColumnId === undefined ? columnId : model.oldColumnId) + '/tasks/'+ model.id, request, httpOptions)
   }
-  deleteTask(columnId: string, taskId: string): Observable<unknown>{
+  deleteTask(boardId: string, columnId: string, taskId: string): Observable<unknown>{
     const httpOptions = {
       headers: new HttpHeaders({
         'accept':'*/*',
         'Authorization': 'Bearer ' + this.authToken,
       })
     };
-    return this.http.delete(this.baseUrl + '/boards/' + this.boardId + '/columns/' + columnId + '/tasks/'+ taskId, httpOptions)
+    return this.http.delete(this.baseUrl + '/boards/' + boardId + '/columns/' + columnId + '/tasks/'+ taskId, httpOptions)
   }
+
+
+getTask(columnId: string, taskId: string): Observable<Task> {
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'accept':'application/json',
+      'Authorization': 'Bearer ' + this.authToken,
+    })
+  };
+  return this.http.get<Task>(this.baseUrl + '/boards/' + this.boardId + '/columns/' + columnId + '/tasks/'+ taskId, httpOptions)
+}
 }

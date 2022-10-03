@@ -1,0 +1,10 @@
+.needs-validation{
+    cursor: auto;
+}
+.file-input {
+    display: none;
+  }
+.fileName_title{
+    color:gray;
+
+}

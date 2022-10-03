@@ -1,8 +1,14 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Tasks } from 'src/app/models/tasks.model';
+import { Task } from 'src/app/models/task.model';
 import { TasksService } from 'src/app/tasks.service';
-import { Column } from 'src/app/models/column.model';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+
+import { Store } from '@ngrx/store';
+import { AppState} from '../../store/app.states';
+import { Observable } from 'rxjs';
+import { CreateStarted } from '../../store/actions/task.actions'
+import { Add } from 'src/app/store/actions/loader.actions';
+
 
 
 @Component({
@@ -12,25 +18,30 @@ import { Router, ActivatedRoute } from '@angular/router';
   providers: [TasksService],
 })
 export class CreateTaskModalComponent implements OnInit {
-  newTask: Tasks = new Tasks();
+
+  newTask: Task = new Task();
   @Input() columnId: string;
   boardId: string;
+  getState: Observable<any>;
 
   constructor(private taskService: TasksService,
-    private activeRoute : ActivatedRoute) {
+    private activeRoute : ActivatedRoute,
+    private store: Store<AppState>) {
       this.activeRoute.paramMap.subscribe( param => {
         this.boardId = param.get('id')
        });
+       this.getState = this.store.select("taskState");
      }
 
   ngOnInit(): void {}
-  onSubmit(submitedTask: Tasks) {
-    this.taskService
-      .createTask(submitedTask, this.columnId)
-      .subscribe((response) => {
-        this.newTask = response;
-        localStorage.setItem('task-id', response.id);
-        window.location.reload();
-      });
+
+  onSubmit(submitedTask: Task) {
+    this.store.dispatch(new CreateStarted(submitedTask,this.boardId, this.columnId ));
+    this.store.dispatch(new Add(true));
+    this.getState.subscribe((state) => {
+      this.newTask = state.tasks;
+    
+  });
   }
+
 }

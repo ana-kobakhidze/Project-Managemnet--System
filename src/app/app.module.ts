@@ -1,7 +1,9 @@
-import { ErrorHandler, NgModule } from '@angular/core';
+import { ErrorHandler, NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { BrowserModule } from '@angular/platform-browser';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { EffectsModule } from '@ngrx/effects';
-import { HttpClient, HttpClientModule} from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -26,11 +28,11 @@ import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.co
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from 'src/environments/environment';
-import { reducers } from './store/app.states';
+import * as AppReducers from './store/app.states';
 import { StoreModule } from '@ngrx/store';
-import { TokenInterceptor, ErrorInterceptor} from './token.interceptor';
-import { AuthService } from './auth-service.service';
-import { BoardsService } from './boards.service';
+import { TokenInterceptor, ErrorInterceptor } from './token.interceptor';
+import { AuthService } from './auth.service';
+import { BoardService } from './board.service';
 import { ColumnsService } from './columns.service';
 import { TasksService } from './tasks.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -40,7 +42,11 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { GlobalErrorHandler } from './shared/global-error-handler';
 import { NotifierModule } from 'angular-notifier';
-
+import { AboutPageComponent } from './about-page/about-page.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BoardEffects } from './store/effects/board.effects';
+import { ColumnEffects } from './store/effects/column.effects';
+import { TaskEffect } from './store/effects/Task.effects';
 
 // Factory function required during AOT compilation
 export function httpTranslateLoaderFactory(http: HttpClient) {
@@ -68,6 +74,7 @@ export function httpTranslateLoaderFactory(http: HttpClient) {
     TaskComponent,
     PageNotFoundComponent,
     EditProfileComponent,
+    AboutPageComponent,
   ],
 
   imports: [
@@ -75,40 +82,49 @@ export function httpTranslateLoaderFactory(http: HttpClient) {
     HttpClientModule,
     AppRoutingModule,
     FormsModule,
-    StoreModule.forRoot(reducers, {}),
-    EffectsModule.forRoot([AuthEffects]),
+    StoreModule.forRoot(AppReducers.reducers),
+    EffectsModule.forRoot([
+      AuthEffects,
+      BoardEffects,
+      ColumnEffects,
+      TaskEffect,
+    ]),
     DndModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
         useFactory: httpTranslateLoaderFactory,
-        deps: [HttpClient]
-      }
+        deps: [HttpClient],
+      },
     }),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,
     }),
-    NotifierModule
+    NotifierModule,
+    BrowserAnimationsModule,
+    DragDropModule,
+    MatProgressBarModule
   ],
   providers: [
     AuthGuard,
     AuthService,
-    BoardsService,
+    BoardService,
     ColumnsService,
     TasksService,
-    [{provide: ErrorHandler, useClass: GlobalErrorHandler}],
+    [{ provide: ErrorHandler, useClass: GlobalErrorHandler }],
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
-      multi: true
+      multi: true,
     },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorInterceptor,
-      multi: true
-    }
+      multi: true,
+    },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class AppModule { }
+export class AppModule {}

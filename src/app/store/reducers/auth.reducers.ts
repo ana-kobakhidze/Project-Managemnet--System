@@ -1,12 +1,9 @@
 import { User } from "src/app/models/user.model";
-import { All, AuthActionTypes } from "../user.actions";
+import { All, AuthActionTypes } from "../actions/user.actions";
 
 export interface State {
-    // is a user authenticated?
     isAuthenticated: boolean;
-    // if authenticated, there should be a user object
     user: User | null;
-    // error message
     errorMessage: string | null;
   }
   export const initialState: State = {
@@ -15,19 +12,16 @@ export interface State {
     errorMessage: null
   };
 
-  export function reducer(state = initialState, action: All): State {
+  export function reducer(
+    state: State = initialState, 
+    action: All){
+    
     switch (action.type) {
       case AuthActionTypes.LOGIN_SUCCESS: {
         const newState =  {
           ...state,
           isAuthenticated: true,
-          user: {
-            id: "",
-            name: "",
-            token: action.payload.token,
-            login: "",
-            password: ""
-          },
+          user: new User(action.payload.login, "", action.payload.id, action.payload.token, action.payload.expiresAt),
           errorMessage: null
         };
         localStorage.setItem('state', JSON.stringify(newState));
@@ -43,13 +37,7 @@ export interface State {
         return {
           ...state,
           isAuthenticated: false,
-          user: {
-            id: action.payload.id,
-            name: action.payload.name,
-            login: action.payload.login,
-            password: "",
-            token: ""
-          },
+          user: new User(action.payload.login, "", action.payload.id, "", null),
           errorMessage: null
         };
       }
@@ -60,22 +48,21 @@ export interface State {
         };
       }
       case AuthActionTypes.LOGOUT: {
-        localStorage.removeItem("state");
-        return initialState;
+        localStorage.removeItem('token');
+        localStorage.removeItem('state');    
+        return {
+          ...state,
+          isAuthenticated: false,
+          user: null,
+          errorMessage: null
+        };
       }
       case AuthActionTypes.SYNC_STATE: {
         return {
           ...state,
-          isAuthenticated: true,
-          user: {
-            id: "",
-            name: "",
-            token: action.payload.token,
-            login: "",
-            password: ""
-          },
+          isAuthenticated: action.payload.isAuthenticated,
+          user: action.payload.user,
           errorMessage: null
-
         }
       }
       default: {

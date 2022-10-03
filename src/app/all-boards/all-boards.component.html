@@ -1,40 +1,63 @@
-<div class="container mt-5">
+<div class="container">
+
   <div class="row">
+    <div>
+      <button
+        type="button"
+        class="btn btn-light btn-outline-dark fw-bold mt-5 "
+        style="width:100%"
+        data-bs-toggle="modal"
+        data-bs-target="#upsert"
+      >
+        {{ "ADD_NEW" | translate }}
+      </button>
+        <app-modal></app-modal>
+     </div>
     <div
-      class="card view col-3 bg-warning border border-dark rounded me-4 mb-4"
-      style="height: 10rem; width: 19rem"
-      *ngFor="let board of allBoards"
-    >
-      <div class="card-body mask boards">
-        <div>
-          <a
+      class="card col-10 col-md-6 col-lg-3 border-0 mt-5 card-container"
+      *ngFor="let board of allBoards">
+
+      <div class="img-box" (click)="goToBoard(board.id)">
+         <img src={{board.src}} alt="illustration" >
+      </div>
+
+      <div class="card-body bg-warning border border-dark rounded boards ">
+
+        <div class="d-flex justify-content-between">
+          <button
             href="#"
-            class="btn bg-transparent border border-dark rounded"
+            class="btn btn-warning btn-outline-dark fw-bold"
             data-bs-toggle="modal"
             [attr.data-bs-target]="'#staticBackdrop' + board.id"
-            >X</a
+            >X</button
           >
+
+          <button
+          href="#"
+          class="btn btn-warning btn-outline-dark fw-bold"
+          data-bs-toggle="modal"
+          [attr.data-bs-target]="'#upsert' + board.id">
+            <i class="bi bi-pencil"></i>
+          </button>
+
+          <div (click)="goToBoard(board.id)" >
+            <h2 class="text mb-0">{{ board.title }}</h2>
+          </div>
+
         </div>
-        <div (click)="goToBoard(board.id)">
-          <h3 class="card-title text-center mt-1">{{ board.title }}</h3>
-        </div>
-      </div>
-      <app-delete
+
+        <app-delete
         [message]="['DELETE_BOARD_CONFIRMATION' | translate]"
         [callback]="deleteBoard"
         [param]="{id: board.id}"
         [id]="board.id"
-      ></app-delete>
-    </div>
-    <button
-      type="button"
-      style="height: 10rem; width: 19rem"
-      class="btn col-3 bg-transparent border border-dark rounded"
-      data-bs-toggle="modal"
-      data-bs-target="#exampleModal"
-    >
-      {{ "ADD_NEW" | translate }}
-    </button>
-    <app-modal></app-modal>
+        ></app-delete>
+
+        <app-modal [id]="board.id" [board]="board"></app-modal>
+      </div>
   </div>
+
+
+  </div>
+
 </div>

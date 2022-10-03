@@ -10,7 +10,9 @@
       <div class="modal-content">
         <div class="modal-body">
           <div class="modal-item">
-            <label for="title" class="form-label">{{'TASK_TITLE' | translate}}</label>
+            <label for="title" class="form-label">{{
+              "TASK_TITLE" | translate
+            }}</label>
             <input
               type="text"
               class="form-control"
@@ -22,9 +24,9 @@
           </div>
 
           <div class="modal-item">
-            <label for="description" class="form-label"
-              >{{'TASK_DESCRIPTION' | translate}}</label
-            >
+            <label for="description" class="form-label">{{
+              "TASK_DESCRIPTION" | translate
+            }}</label>
             <input
               type="text"
               class="form-control"
@@ -34,6 +36,42 @@
               required
             />
           </div>
+          <div class="modal-item">
+            <label
+              for="description"
+              class="form-label text-capitalize text-dark fs-6 fw-normal mt-3"
+              >{{ "FILE_UPLOAD" | translate }}</label
+            >
+            </div>
+            <div class="modal-item">
+            <input
+              type="file"
+              class="file-input mt-3"
+              (change)="onChange($event)"
+              #fileUpload
+            />
+</div>
+<div>
+            <div class="file-upload">
+              <a
+                mat-mini-fab
+                color="primary"
+                class="btn btn-link border-0"
+                (click)="fileUpload.click()"
+              >
+              </a>
+              <div *ngIf="uploadedFile">
+                <a class="text-muted"href="javascript: void(0)" (click)="handleDownload()">{{uploadedFile.name}}</a>
+              </div>
+              <div *ngIf="!uploadedFile">
+                <span
+                  class="fileName_title text-capitalize text-dark fw-normal"
+                >
+                  "No file uploaded yet."
+                </span>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="modal-footer">
           <button
@@ -41,14 +79,10 @@
             class="btn btn-secondary"
             data-bs-dismiss="modal"
           >
-          {{'CANCEL' | translate}}
+            {{ "CANCEL" | translate }}
           </button>
-          <button
-            type="submit"
-            class="btn btn-primary"
-            data-bs-dismiss="modal"
-          >
-          {{'UPDATE' | translate}}
+          <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">
+            {{ "UPDATE" | translate }}
           </button>
         </div>
       </div>
