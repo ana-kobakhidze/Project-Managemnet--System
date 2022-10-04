@@ -79,7 +79,7 @@
 
           <li class="nav-item" [routerLinkActive]="'active'" routerLinkActiveOptions = "{exact: true}">
             <a role="button" class="text-dark text-decoration-none my-2 my-sm-0" type="button" [routerLink]="['sign-up']"
-            *ngIf="!isAuthorized"
+            *ngIf="isAuthorized"
             >
             {{'SIGN_UP' | translate}}
           </a>
