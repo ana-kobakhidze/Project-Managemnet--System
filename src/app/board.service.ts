@@ -4,7 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { Board } from './models/board.model';
 import { AuthService } from './auth.service';
 import { ActivatedRoute } from '@angular/router';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environment.prod';
 
 
 @Injectable({

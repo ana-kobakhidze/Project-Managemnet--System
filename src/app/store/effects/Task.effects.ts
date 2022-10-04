@@ -59,7 +59,7 @@ export class TaskEffect {
     CreateTask = createEffect(() => this.actions.pipe(
         ofType(TaskActions.ActionTypes.CREATE_STARTED),
         switchMap((taskData: TaskActions.CreateStarted)=> {
-            return this.taskService.createTask(taskData.payload, taskData.boardId, taskData.columnId).pipe(
+            return this.taskService.createTask(taskData.payload, taskData.order, taskData.done, taskData.boardId, taskData.columnId).pipe(
                 map(response => {
                     this.store.dispatch(new Remove(false));
                     return new TaskActions.Create(response);

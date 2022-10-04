@@ -50,7 +50,9 @@ export class GetFailed implements Action {
 
 export class CreateStarted implements Action {
     readonly type = ActionTypes.CREATE_STARTED;
-    constructor(public payload: Column,
+    constructor(
+        public title: Column, 
+        public order: number,
         public boardId: string
         ){}
 }

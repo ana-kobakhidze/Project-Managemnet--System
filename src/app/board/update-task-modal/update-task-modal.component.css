@@ -1,0 +1,15 @@
+.btnForCheck{
+    border: 1px solid black;
+    background-color: white;
+}
+.btnForCheck:hover{
+    background-color: #FFC849;
+}
+.DoneText{
+    margin-left: 10px;
+}
+.iconForCheck{
+    padding:0;
+    margin:0;
+    font-size: 25px;
+}

@@ -23,6 +23,8 @@ export class CreateTaskModalComponent implements OnInit {
   @Input() columnId: string;
   boardId: string;
   getState: Observable<any>;
+  count: number = 1;
+  taskDone: boolean = false;
 
   constructor(private taskService: TasksService,
     private activeRoute : ActivatedRoute,
@@ -34,9 +36,14 @@ export class CreateTaskModalComponent implements OnInit {
      }
 
   ngOnInit(): void {}
-
+  taskIsDone(){
+     this.taskDone = true;
+  }
   onSubmit(submitedTask: Task) {
-    this.store.dispatch(new CreateStarted(submitedTask,this.boardId, this.columnId ));
+    this.count++;
+    console.error(this.count);
+    console.error(this.taskDone)
+    this.store.dispatch(new CreateStarted(submitedTask, this.count, this.taskDone, this.boardId, this.columnId ));
     this.store.dispatch(new Add(true));
     this.getState.subscribe((state) => {
       this.newTask = state.tasks;

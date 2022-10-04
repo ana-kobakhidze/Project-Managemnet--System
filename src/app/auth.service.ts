@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environment.prod';
 
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry, tap } from 'rxjs/operators';
@@ -26,7 +26,7 @@ export class AuthService {
     }
     const httpOptions = {
       headers: new HttpHeaders({
-        Accept: 'application/json',
+        'Accept': 'application/json',
         'Content-Type': 'application/json',
       }),
     };
@@ -44,7 +44,7 @@ export class AuthService {
   logInUser(model: User): Observable<LogInResponse> {
     const httpOptions = {
       headers: new HttpHeaders({
-        Accept: 'application/json',
+       'Accept': 'application/json',
         'Content-Type': 'application/json',
       }),
     };
@@ -63,8 +63,8 @@ export class AuthService {
     const user = this.getUserFromLocalStorage();
     const httpOptions = {
       headers: new HttpHeaders({
-        Accept: 'application/json',
-        Authorization: 'Bearer ' + user.token,
+        'Accept': 'application/json',
+        'Authorization': 'Bearer ' + user.token,
       }),
     };
     return this.http.get<User>(
@@ -93,8 +93,8 @@ export class AuthService {
     const token = localStorage.getItem('token');
     const httpOptions = {
       headers: new HttpHeaders({
-        Accept: 'application/json',
-        Authorization: 'Bearer ' + token,
+        'Accept': 'application/json',
+        'Authorization': 'Bearer ' + token,
         'Content-Type': 'application/json',
       }),
     };
@@ -105,8 +105,8 @@ export class AuthService {
     const usr = this.getUserFromLocalStorage();
     const httpOptions = {
       headers: new HttpHeaders({
-        Accept: '*/*',
-        Authorization: 'Bearer ' + usr.token,
+        'Accept': '*/*',
+        'Authorization': 'Bearer ' + usr.token,
       }),
   }
   return this.http.delete(this.baseUrl + '/users/' + usr.id,httpOptions)

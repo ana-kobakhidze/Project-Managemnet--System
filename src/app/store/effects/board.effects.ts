@@ -27,7 +27,8 @@ export class BoardEffects {
                 }),
                 catchError(err => {
                     this.store.dispatch(new Remove(false));
-                    this.notifierService.notify('error', err.error.message);
+                    const errObj = JSON.parse(err.error);
+                    this.notifierService.notify('error', errObj.message);
                     return of(new BoardActions.GetAllFailed(err));
                 })
             )
@@ -44,7 +45,8 @@ export class BoardEffects {
                 }),
                 catchError(err => {
                     this.store.dispatch(new Remove(false));
-                    this.notifierService.notify('error', err.error.message);
+                    const errObj = JSON.parse(err.error);
+                    this.notifierService.notify('error', errObj.message);
                     return of(new BoardActions.GetFailed(err));
                 })
             )
@@ -61,7 +63,8 @@ export class BoardEffects {
                 }),
                 catchError(err => {
                     this.store.dispatch(new Remove(false));
-                    this.notifierService.notify('error', err.error.message);
+                    const errObj = JSON.parse(err.error);
+                    this.notifierService.notify('error', errObj.message);
                     return of(new BoardActions.CreateFailed(err));
                 })
             )
@@ -78,7 +81,8 @@ export class BoardEffects {
                 }),
                 catchError(err => {
                     this.store.dispatch(new Remove(false));
-                    this.notifierService.notify('error', err.error.message);
+                    const errObj = JSON.parse(err.error);
+                    this.notifierService.notify('error', errObj.message);
                     return of(new BoardActions.UpdateFailed(err));
                 })
             )
@@ -95,7 +99,8 @@ export class BoardEffects {
                 }),
                 catchError(err => {
                     this.store.dispatch(new Remove(false));
-                    this.notifierService.notify('error', err.error.message);
+                    const errObj = JSON.parse(err.error);
+                    this.notifierService.notify('error', errObj.message);
                     return of(new BoardActions.DeleteFailed(err));
                 })
             )

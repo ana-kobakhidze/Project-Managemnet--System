@@ -45,7 +45,9 @@ export class BoardComponent implements OnInit {
     this.store.dispatch(new GetAllStarted(this.boardId));
     this.store.dispatch(new Add(true));
     this.getState.subscribe((state) => {
-        this.columns = state.columns.sort((a, b) => (a.order > b.order ? 1 : -1));
+        let columnsForSort = [...state.columns];
+        let sorted = columnsForSort.sort((a, b) => (a.order > b.order ? 1 : -1));
+        this.columns = sorted;
         this.allColumnIds = this.columns.map(column => column.id);
     });
   }

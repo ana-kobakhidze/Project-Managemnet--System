@@ -48,6 +48,7 @@ export class UpdateTaskModalComponent implements OnInit {
       }
     });
   }
+ 
   onSubmit() {
     this.store.dispatch(new Add(true));
     if(this.uploadedFile?.size > 0){
@@ -58,7 +59,9 @@ export class UpdateTaskModalComponent implements OnInit {
       new UpdateStarted(this.task, this.boardId, this.columnId)
     );
   }
-
+  taskIsDone(){
+    this.task.done = true;
+  }
   onChange(event) {
     this.uploadedFile = event.target.files[0];
   }

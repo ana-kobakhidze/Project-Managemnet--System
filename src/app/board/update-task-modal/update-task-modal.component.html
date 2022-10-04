@@ -23,7 +23,7 @@
             />
           </div>
 
-          <div class="modal-item">
+          <div class="modal-item mt-3">
             <label for="description" class="form-label">{{
               "TASK_DESCRIPTION" | translate
             }}</label>
@@ -35,6 +35,11 @@
               [(ngModel)]="task.description"
               required
             />
+          </div>
+          <div class="modal-item mt-3">
+            <button class="btn btn-warning btnForCheck"(click)="taskIsDone()"><i *ngIf="task.done" class="bi bi-check text-dark iconForCheck">
+            </i></button>
+            <span class="DoneText">{{ "DONE" | translate}}</span>
           </div>
           <div class="modal-item">
             <label

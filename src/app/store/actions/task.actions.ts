@@ -61,6 +61,8 @@ export class Create implements Action {
 export class CreateStarted implements Action {
     readonly type = ActionTypes.CREATE_STARTED;
     constructor(public payload: Task,
+        public order: number,
+        public done: boolean,
         public boardId: string,
         public columnId: string
        ){

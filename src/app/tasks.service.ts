@@ -35,13 +35,16 @@ export class TasksService {
     this.baseUrl = environment.apiUrl;
   }
 
-  createTask(model: Task, boardId: string, columnId : string): Observable<Task>{
-
+  createTask(model: Task, order: number, done: boolean, boardId: string, columnId : string): Observable<Task>{
     let request = {
       title: model.title,
+      done: done,
+      order: order,
       description: model.description,
       userId: this.userId
     }
+    console.error(request);
+    console.error("holly shit")
     const httpOptions ={
       headers: new HttpHeaders({
         'accept':'application/json',
@@ -66,6 +69,7 @@ export class TasksService {
       title: model.title,
       order: model.order,
       description: model.description,
+      done: model.done,
       userId: model.userId,
       boardId: model.boardId,
       columnId: model.columnId,

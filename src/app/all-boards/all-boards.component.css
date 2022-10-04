@@ -17,3 +17,6 @@
 .text:hover{
     font-weight: bold;
 }
+.title{
+    font-size: 1rem;
+}

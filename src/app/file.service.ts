@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environment.prod';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { Observable } from 'rxjs';
@@ -38,9 +38,9 @@ export class FileService {
     const httpOptions = {
         headers: new HttpHeaders({
           'accept': '*/*',
-          Authorization: 'Bearer ' + this.authToken,
+          'Authorization': 'Bearer ' + this.authToken,
           'content-type': 'application/octet-stream',
-          responseType: 'blob'
+          'responseType': 'blob'
         }),
     }
     return this.http.request('GET',this.baseUrl+ '/file/'+taskId+"/"+filename,{responseType:'arraybuffer'})

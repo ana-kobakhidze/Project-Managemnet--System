@@ -39,8 +39,10 @@ export class ColumnTasksComponent implements OnInit {
     this.store.dispatch(new GetAllStarted(this.boardId, this.columnId));
     this.store.dispatch(new Add(true));
     this.getState.subscribe((state) => {
-      this.tasks = state.tasks.filter(st => st.columnId === this.columnId).sort((a,b) => (a.order > b.order) ? 1 : -1);
-        
+      let tasksForSort = [...state.tasks];
+      let sorted = tasksForSort.filter(st => st.columnId === this.columnId).sort((a,b) => (a.order > b.order) ? 1 : -1);
+      this.tasks = sorted
+
     });
 
   }

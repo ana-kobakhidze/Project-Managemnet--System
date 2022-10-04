@@ -14,7 +14,6 @@ export class GlobalErrorHandler implements ErrorHandler {
             message = error.error.message;
           }
           else{
-            console.error(error);
             message='Something went wrong, please try again later';
           }
         } else {

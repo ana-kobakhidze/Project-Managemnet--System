@@ -18,6 +18,7 @@ export class CreateModalComponent implements OnInit {
   getState: Observable<any>;
   newColumn: Column = new Column();
   boardId: string;
+  count: number = 0;
 
   constructor(private columnsService: ColumnsService,
     private activeRoute : ActivatedRoute,
@@ -31,7 +32,8 @@ export class CreateModalComponent implements OnInit {
   ngOnInit(): void {}
 
   onSubmit(submitedColumn: Column) {
-    this.store.dispatch(new CreateStarted(submitedColumn, this.boardId));
+    this.count++;
+    this.store.dispatch(new CreateStarted(submitedColumn, this.count, this.boardId));
     this.store.dispatch(new Add(true));
     this.getState.subscribe((state) => {
       this.newColumn = state.column;

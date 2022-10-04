@@ -27,7 +27,8 @@ export class ColumnEffects {
                 }),
                 catchError(err => {
                     this.store.dispatch(new Remove(false));
-                    this.notifierService.notify('error', err.error.message);
+                    const errObj = JSON.parse(err.error);
+                    this.notifierService.notify('error', errObj.message);
                     return of(new ColumnActions.GetAllFailed(err));
                 })
             )
@@ -44,7 +45,8 @@ export class ColumnEffects {
                 }),
                 catchError(err => {
                     this.store.dispatch(new Remove(false));
-                    this.notifierService.notify('error', err.error.message);
+                    const errObj = JSON.parse(err.error);
+                    this.notifierService.notify('error', errObj.message);
                     return of(new ColumnActions.GetFailed(err));
                 })
             )
@@ -54,14 +56,15 @@ export class ColumnEffects {
     CreateColumn = createEffect(() => this.actions.pipe(
         ofType(ColumnActions.ActionTypes.CREATE_STARTED),
         switchMap((columnData: ColumnActions.CreateStarted)=> {
-            return this.columnService.createColumn(columnData.payload, columnData.boardId).pipe(
+            return this.columnService.createColumn(columnData.title, columnData.order, columnData.boardId).pipe(
                 map(response => {
                     this.store.dispatch(new Remove(false));
                     return new ColumnActions.Create(response);
                 }),
                 catchError(err => {
                     this.store.dispatch(new Remove(false));
-                    this.notifierService.notify('error', err.error.message);
+                    const errObj = JSON.parse(err.error);
+                    this.notifierService.notify('error', errObj.message);
                     return of(new ColumnActions.CreateFailed(err));
                 })
             )
@@ -78,7 +81,8 @@ export class ColumnEffects {
                 }),
                 catchError(err => {
                     this.store.dispatch(new Remove(false));
-                    this.notifierService.notify('error', err.error.message);
+                    const errObj = JSON.parse(err.error);
+                    this.notifierService.notify('error', errObj.message);
                     return of(new ColumnActions.UpdateFailed(err));
                 })
             )
@@ -97,7 +101,8 @@ export class ColumnEffects {
                 }),
                 catchError(err => {
                     this.store.dispatch(new Remove(false));
-                    this.notifierService.notify('error', err.error.message);
+                    const errObj = JSON.parse(err.error);
+                    this.notifierService.notify('error', errObj.message);
                     return of(new ColumnActions.DeleteFailed(err));
                 })
             )

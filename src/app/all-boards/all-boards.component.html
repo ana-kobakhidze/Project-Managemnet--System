@@ -17,8 +17,8 @@
       class="card col-10 col-md-6 col-lg-3 border-0 mt-5 card-container"
       *ngFor="let board of allBoards">
 
-      <div class="img-box" (click)="goToBoard(board.id)">
-         <img src={{board.src}} alt="illustration" >
+      <div class="img-box">
+         <img src={{board.src}} alt="illustration" (click)="goToBoard(board.id)" />
       </div>
 
       <div class="card-body bg-warning border border-dark rounded boards ">
@@ -41,7 +41,7 @@
           </button>
 
           <div (click)="goToBoard(board.id)" >
-            <h2 class="text mb-0">{{ board.title }}</h2>
+            <h2 class="text mb-0 title">{{ board.title }}</h2>
           </div>
 
         </div>

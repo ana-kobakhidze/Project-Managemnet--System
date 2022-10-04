@@ -4,7 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { Column } from './models/column.model';
 import { AuthService } from './auth.service';
 import { ActivatedRoute } from '@angular/router';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environment.prod';
 
 @Injectable({
   providedIn: 'root',
@@ -25,25 +25,31 @@ export class ColumnsService {
       this.baseUrl = environment.apiUrl;
     });
   }
-  createColumn(model: Column, boardId: string): Observable<Column> {
+  createColumn(title: Column, order: number, boardId: string): Observable<Column> {
+    const request = {
+      title: title.title,
+      order: order
+    }
+    console.error(request.order)
+    console.error("fuck you")
     const httpOptions = {
       headers: new HttpHeaders({
-        Accept: 'application/json',
-        Authorization: 'Bearer ' + this.authToken,
+       'Accept': 'application/json',
+        'Authorization': 'Bearer ' + this.authToken,
         'Content-Type': 'application/json',
       }),
     };
     return this.http.post<Column>(
       this.baseUrl + '/boards/' + boardId + '/columns',
-      model,
+      request,
       httpOptions
     );
   }
   getColumns(id): Observable<Column[]> {
     const httpOptions = {
       headers: new HttpHeaders({
-        Accept: 'application/json',
-        Authorization: 'Bearer ' + this.authToken,
+        'Accept': 'application/json',
+       'Authorization': 'Bearer ' + this.authToken,
       }),
     };
     return this.http.get<Column[]>(
@@ -58,8 +64,8 @@ export class ColumnsService {
   getColumn(id: string): Observable<Column> {
     const httpOptions = {
       headers: new HttpHeaders({
-        Accept: '*/*',
-        Authorization: 'Bearer ' + this.authToken,
+        'Accept': '*/*',
+        'Authorization': 'Bearer ' + this.authToken,
       }),
     };
     return this.http.get<Column>(
@@ -71,8 +77,8 @@ export class ColumnsService {
   deleteColumn(columnId: string, boardId: string): Observable<unknown> {
     const httpOptions = {
       headers: new HttpHeaders({
-        Accept: '*/*',
-        Authorization: 'Bearer ' + this.authToken,
+        'Accept': '*/*',
+      'Authorization': 'Bearer ' + this.authToken,
       }),
     };
     return this.http.delete(
@@ -81,14 +87,14 @@ export class ColumnsService {
     );
   }
   updateColumn(model: Column, boardId: string): Observable<Column> {
-    let request = {
+    const request = {
       title: model.title,
       order: model.order,
     };
     const httpOptions = {
       headers: new HttpHeaders({
-        Accept: 'application/json',
-        Authorization: 'Bearer ' + this.authToken,
+       'Accept': 'application/json',
+        'Authorization': 'Bearer ' + this.authToken,
         'Content-Type': 'application/json',
       }),
     };
