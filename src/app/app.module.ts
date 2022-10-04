@@ -1,5 +1,5 @@
 import { ErrorHandler, NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { BrowserModule } from '@angular/platform-browser';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { EffectsModule } from '@ngrx/effects';
@@ -104,7 +104,7 @@ export function httpTranslateLoaderFactory(http: HttpClient) {
     NotifierModule,
     BrowserAnimationsModule,
     DragDropModule,
-    MatProgressBarModule
+    MatProgressBarModule,
   ],
   providers: [
     AuthGuard,

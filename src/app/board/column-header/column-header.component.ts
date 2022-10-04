@@ -1,7 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AppState} from '../../store/app.states';
-import { DeleteStarted, UpdateStarted } from 'src/app/store/actions/column.actions';
+import { AppState } from '../../store/app.states';
+import {
+  DeleteStarted,
+  UpdateStarted,
+} from 'src/app/store/actions/column.actions';
 import { ColumnsService } from '../../columns.service';
 import { Column } from 'src/app/models/column.model';
 import { ActivatedRoute } from '@angular/router';
@@ -44,7 +47,7 @@ export class ColumnHeaderComponent implements OnInit {
 
   updateTitle() {
     this.column.title =
-    this.column.title !== this.newTitle ? this.newTitle : this.column.title;
+      this.column.title !== this.newTitle ? this.newTitle : this.column.title;
     this.store.dispatch(new UpdateStarted(this.column, this.boardId));
     this.store.dispatch(new Add(true));
     this.titleIsEditable = false;

@@ -6,44 +6,47 @@ import { AuthService } from './auth.service';
 import { ActivatedRoute } from '@angular/router';
 import { environment } from 'src/environments/environment.prod';
 
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class BoardService {
   authToken: string;
   baseUrl: string;
 
-  constructor(private http: HttpClient, 
+  constructor(
+    private http: HttpClient,
     private auth: AuthService,
-    private activeRoute : ActivatedRoute) {
+    private activeRoute: ActivatedRoute
+  ) {
     this.authToken = auth.getAuthToken();
     this.baseUrl = environment.apiUrl;
+  }
 
-   }
-
-  createNewBoard(model: Board) : Observable<Board>{
+  createNewBoard(model: Board): Observable<Board> {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Accept': 'application/json',
-        'Authorization': 'Bearer ' + this.authToken,
-        'Content-Type': 'application/json'
-      })
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + this.authToken,
+        'Content-Type': 'application/json',
+      }),
     };
 
-    const observable =  this.http
-    .post<Board>(this.baseUrl + '/boards', model, httpOptions);
+    const observable = this.http.post<Board>(
+      this.baseUrl + '/boards',
+      model,
+      httpOptions
+    );
 
     return observable;
   }
 
-  setCurrentBoard(activeBoard: Board) : void{
-    localStorage.setItem("board-id", activeBoard.id);
+  setCurrentBoard(activeBoard: Board): void {
+    localStorage.setItem('board-id', activeBoard.id);
   }
 
-  getBoardId() : string {
-    let urlId = "";
-    this.activeRoute.paramMap.subscribe( param => {
+  getBoardId(): string {
+    let urlId = '';
+    this.activeRoute.paramMap.subscribe((param) => {
       urlId = param.get('id');
       return urlId;
     });
@@ -53,44 +56,48 @@ export class BoardService {
   getBoard(id: string): Observable<Board> {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Accept': 'application/json',
-        'Authorization': 'Bearer ' + this.authToken
-      })
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + this.authToken,
+      }),
     };
     return this.http.get<Board>(this.baseUrl + '/boards/' + id, httpOptions);
-  } 
+  }
 
-  getBoards() : Observable<Board[]>{
+  getBoards(): Observable<Board[]> {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Accept': 'application/json',
-        'Authorization': 'Bearer ' + this.authToken
-      })
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + this.authToken,
+      }),
     };
     return this.http.get<Board[]>(this.baseUrl + '/boards', httpOptions);
   }
 
-  updateBoard(board: Board) : Observable<Board>{
-    const model={
+  updateBoard(board: Board): Observable<Board> {
+    const model = {
       title: board.title,
-      description: board.description
-    }
+      description: board.description,
+    };
     const httpOptions = {
       headers: new HttpHeaders({
-        'Accept': 'application/json',
-        'Authorization': 'Bearer ' + this.authToken
-      })
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + this.authToken,
+      }),
     };
-    return this.http.put<Board>(this.baseUrl + '/boards/' + board.id, model, httpOptions);
+    return this.http.put<Board>(
+      this.baseUrl + '/boards/' + board.id,
+      model,
+      httpOptions
+    );
   }
 
-  delete(id: string) : Observable<unknown>{
+  delete(id: string): Observable<unknown> {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Accept': '*/*',
-        'Authorization': 'Bearer ' + this.authToken
-      })
+        Accept: '*/*',
+        Authorization: 'Bearer ' + this.authToken,
+      }),
     };
-    return this.http.delete(this.baseUrl + '/boards/' + id, httpOptions)
+    return this.http.delete(this.baseUrl + '/boards/' + id, httpOptions);
   }
 }

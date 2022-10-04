@@ -12,7 +12,7 @@ export class AuthGuardService implements CanActivate {
     if (!authToken || Date.now() > expDate) {
       this.router.navigateByUrl('/sign-in');
       return false;
-    } 
-      return true;
+    }
+    return true;
   }
 }

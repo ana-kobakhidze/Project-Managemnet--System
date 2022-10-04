@@ -6,12 +6,11 @@ import * as column from './reducers/column.reducers';
 import * as task from './reducers/task.reducers';
 import * as loader from './reducers/loader.reducers';
 
-
 export interface AppState {
   authState: auth.State;
   boardState: board.State;
   columnState: column.State;
-  taskState: task.State
+  taskState: task.State;
   loaderState: loader.State;
 }
 
@@ -20,6 +19,5 @@ export const reducers: ActionReducerMap<AppState> = {
   boardState: board.reducer,
   columnState: column.reducer,
   taskState: task.reducer,
-  loaderState: loader.reducer
+  loaderState: loader.reducer,
 };
-

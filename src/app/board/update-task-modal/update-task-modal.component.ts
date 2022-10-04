@@ -44,14 +44,14 @@ export class UpdateTaskModalComponent implements OnInit {
     this.getState.subscribe((state) => {
       this.updatedTask = state.tasks.find((t: Task) => t.id === this.task.id);
       if (this.updatedTask && this.updatedTask?.files?.length > 0) {
-        this.uploadedFile = new File([],this.updatedTask.files[0].filename);
+        this.uploadedFile = new File([], this.updatedTask.files[0].filename);
       }
     });
   }
- 
+
   onSubmit() {
     this.store.dispatch(new Add(true));
-    if(this.uploadedFile?.size > 0){
+    if (this.uploadedFile?.size > 0) {
       const fileModel = new FileModel(this.task.id, this.uploadedFile);
       this.store.dispatch(new FileAddStarted(fileModel));
     }
@@ -59,23 +59,23 @@ export class UpdateTaskModalComponent implements OnInit {
       new UpdateStarted(this.task, this.boardId, this.columnId)
     );
   }
-  taskIsDone(){
+  taskIsDone() {
     this.task.done = true;
   }
   onChange(event) {
     this.uploadedFile = event.target.files[0];
   }
 
-  handleDownload(e){
-    this.fileService.downloadFile(this.updatedTask.id, this.uploadedFile.name).subscribe(res =>{
-      const blob = new Blob([res],{type:'application/octet-stream'});
-      let url = window.URL.createObjectURL(blob);
-      let pwa = window.open(url);
-      if (!pwa || pwa.closed || typeof pwa.closed == 'undefined') {
-        alert( 'Please disable your Pop-up blocker and try again.');
-      }});
-
+  handleDownload(e) {
+    this.fileService
+      .downloadFile(this.updatedTask.id, this.uploadedFile.name)
+      .subscribe((res) => {
+        const blob = new Blob([res], { type: 'application/octet-stream' });
+        let url = window.URL.createObjectURL(blob);
+        let pwa = window.open(url);
+        if (!pwa || pwa.closed || typeof pwa.closed == 'undefined') {
+          alert('Please disable your Pop-up blocker and try again.');
+        }
+      });
   }
-
-
 }

@@ -5,9 +5,12 @@ import { BoardService } from 'src/app/board.service';
 import { ColumnsService } from 'src/app/columns.service';
 import { Column } from 'src/app/models/column.model';
 import { Store } from '@ngrx/store';
-import { AppState} from '../../../store/app.states';
+import { AppState } from '../../../store/app.states';
 import { Observable } from 'rxjs';
-import { DeleteStarted, UpdateStarted } from '../../../store/actions/task.actions';
+import {
+  DeleteStarted,
+  UpdateStarted,
+} from '../../../store/actions/task.actions';
 import { ActivatedRoute } from '@angular/router';
 import { Add } from 'src/app/store/actions/loader.actions';
 
@@ -25,24 +28,19 @@ export class TaskComponent implements OnInit {
   tasks: Task[];
   boardId: string;
 
-
   constructor(
-    private activeRoute : ActivatedRoute,
+    private activeRoute: ActivatedRoute,
     private store: Store<AppState>
   ) {
-    this.activeRoute.paramMap.subscribe( param => {
-      this.boardId = param.get('id')
-     });
-    this.getState = this.store.select("taskState");
+    this.activeRoute.paramMap.subscribe((param) => {
+      this.boardId = param.get('id');
+    });
+    this.getState = this.store.select('taskState');
   }
 
-  ngOnInit(): void {
-
-  }
-  public deleteTask = ({columnId, taskId}) =>{
+  ngOnInit(): void {}
+  public deleteTask = ({ columnId, taskId }) => {
     this.store.dispatch(new DeleteStarted(this.boardId, columnId, taskId));
     this.store.dispatch(new Add(true));
-  }
-
-
+  };
 }

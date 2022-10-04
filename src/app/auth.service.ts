@@ -15,26 +15,22 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 export class AuthService {
   baseUrl: string;
   constructor(private http: HttpClient) {
-    this.baseUrl = environment.apiUrl
+    this.baseUrl = environment.apiUrl;
   }
 
   signUpUser(model: User): Observable<User> {
     const request = {
       name: model.name,
       login: model.login,
-      password: model.password
-    }
+      password: model.password,
+    };
     const httpOptions = {
       headers: new HttpHeaders({
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'Content-Type': 'application/json',
       }),
     };
-    return this.http.post<User>(
-      this.baseUrl + '/signup',
-      request,
-      httpOptions
-    );
+    return this.http.post<User>(this.baseUrl + '/signup', request, httpOptions);
   }
   getUserId(): string {
     const usr = this.getUserFromLocalStorage();
@@ -44,7 +40,7 @@ export class AuthService {
   logInUser(model: User): Observable<LogInResponse> {
     const httpOptions = {
       headers: new HttpHeaders({
-       'Accept': 'application/json',
+        Accept: 'application/json',
         'Content-Type': 'application/json',
       }),
     };
@@ -52,7 +48,7 @@ export class AuthService {
       this.baseUrl + '/signin',
       model,
       httpOptions
-    )   
+    );
   }
 
   getAuthToken(): string {
@@ -63,19 +59,16 @@ export class AuthService {
     const user = this.getUserFromLocalStorage();
     const httpOptions = {
       headers: new HttpHeaders({
-        'Accept': 'application/json',
-        'Authorization': 'Bearer ' + user.token,
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + user.token,
       }),
     };
-    return this.http.get<User>(
-      this.baseUrl + '/users/' + user.id,
-      httpOptions
-    );
+    return this.http.get<User>(this.baseUrl + '/users/' + user.id, httpOptions);
   }
 
-  getUserFromLocalStorage(){
+  getUserFromLocalStorage() {
     const token = localStorage.getItem('token');
-    if(!token){
+    if (!token) {
       return new User();
     }
     const helper = new JwtHelperService();
@@ -83,41 +76,45 @@ export class AuthService {
     const usrModel = {
       id: usr.userId,
       login: usr.login,
-      token: token
+      token: token,
     };
     return usrModel;
   }
 
-  updateUser(model : User): Observable<User>{
+  updateUser(model: User): Observable<User> {
     const userId = this.getUserId();
     const token = localStorage.getItem('token');
     const httpOptions = {
       headers: new HttpHeaders({
-        'Accept': 'application/json',
-        'Authorization': 'Bearer ' + token,
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + token,
         'Content-Type': 'application/json',
       }),
     };
-    return this.http.put<User>(this.baseUrl + '/users/' + userId, model, httpOptions)
+    return this.http.put<User>(
+      this.baseUrl + '/users/' + userId,
+      model,
+      httpOptions
+    );
   }
 
-  deleteUser(): Observable<unknown>{
+  deleteUser(): Observable<unknown> {
     const usr = this.getUserFromLocalStorage();
     const httpOptions = {
       headers: new HttpHeaders({
-        'Accept': '*/*',
-        'Authorization': 'Bearer ' + usr.token,
+        Accept: '*/*',
+        Authorization: 'Bearer ' + usr.token,
       }),
+    };
+    return this.http.delete(this.baseUrl + '/users/' + usr.id, httpOptions);
   }
-  return this.http.delete(this.baseUrl + '/users/' + usr.id,httpOptions)
-}
 
- getUserFromAuthToken(token: string): User {
-  if(!token){
-    return new User();
+  getUserFromAuthToken(token: string): User {
+    if (!token) {
+      return new User();
+    }
+    const helper = new JwtHelperService();
+    const usr = helper.decodeToken(token);
+    return new User(usr.login, '', usr.userId, token);
   }
-  const helper = new JwtHelperService();
-  const usr = helper.decodeToken(token);
-  return new User(usr.login, "", usr.userId, token);
- }
 }

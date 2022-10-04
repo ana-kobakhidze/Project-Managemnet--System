@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AppState} from '../store/app.states';
+import { AppState } from '../store/app.states';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 
@@ -9,7 +9,6 @@ import { BoardService } from '../board.service';
 
 import { DeleteStarted, GetAllStarted } from '../store/actions/board.actions';
 import { Add } from '../store/actions/loader.actions';
-
 
 @Component({
   selector: 'app-all-boards',
@@ -20,13 +19,19 @@ import { Add } from '../store/actions/loader.actions';
 export class AllBoardsComponent implements OnInit {
   getState: Observable<any>;
   allBoards: Board[] = [];
-  imgSources :string[];
-  constructor(
-    private router: Router,
-    private store: Store<AppState>
-  ) {
-    this.getState = this.store.select("boardState"); 
-    this.imgSources = ['../../assets/images/board_1.svg','../../assets/images/board_2.svg','../../assets/images/board_3.svg','../../assets/images/board_4.svg','../../assets/images/board_5.svg','../../assets/images/board_6.svg','../../assets/images/board_7.svg','../../assets/images/board_8.svg']
+  imgSources: string[];
+  constructor(private router: Router, private store: Store<AppState>) {
+    this.getState = this.store.select('boardState');
+    this.imgSources = [
+      '../../assets/images/board_1.svg',
+      '../../assets/images/board_2.svg',
+      '../../assets/images/board_3.svg',
+      '../../assets/images/board_4.svg',
+      '../../assets/images/board_5.svg',
+      '../../assets/images/board_6.svg',
+      '../../assets/images/board_7.svg',
+      '../../assets/images/board_8.svg',
+    ];
   }
 
   ngOnInit(): void {
@@ -34,19 +39,18 @@ export class AllBoardsComponent implements OnInit {
     this.store.dispatch(new Add(true));
     this.getState.subscribe((state) => {
       this.allBoards = state.allBoards;
-      this.allBoards.forEach((board, index) =>{
-        if(index >= this.imgSources.length - 1){
-          this.imgSources = this.imgSources.concat(this.imgSources)
+      this.allBoards.forEach((board, index) => {
+        if (index >= this.imgSources.length - 1) {
+          this.imgSources = this.imgSources.concat(this.imgSources);
         }
         board.src = this.imgSources[index];
-        Object.preventExtensions(this.allBoards)
-       })
-       
+        Object.preventExtensions(this.allBoards);
+      });
     });
   }
 
   public deleteBoard = ({ id }): void => {
-    this.store.dispatch(new DeleteStarted(id));  
+    this.store.dispatch(new DeleteStarted(id));
     this.store.dispatch(new Add(true));
   };
 

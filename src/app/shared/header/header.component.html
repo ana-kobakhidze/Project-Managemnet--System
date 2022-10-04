@@ -1,92 +1,150 @@
 <div class="container p-0">
   <nav class="navbar navbar-expand-lg navbar-light">
-   <div class="container-fluid p-0">
-    <!-- brand -->
-    <a class="navbar-brand" [routerLink]="['home']">
-      <img src="../../assets/images/PMA.svg" width="150" height="100" />
-    </a>
-    <!-- menu toggler -->
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <!-- nav links -->
+    <div class="container-fluid p-0">
+      <!-- brand -->
+      <a class="navbar-brand" [routerLink]="['home']">
+        <img src="../../assets/images/PMA.svg" width="150" height="100" />
+      </a>
+      <!-- menu toggler -->
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <!-- nav links -->
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <!-- left links and localization -->
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0 mb-5 header-list">
-      <!-- 1.localization link -->  
-        <li *ngIf="isAuthorized" class="nav-item dropdown" >
-          <a
-          class="nav-link dropdown-toggle text-dark"
-          role="button"
-          data-bs-toggle="dropdown"
-          aria-expanded="false"
-          >
-            {{'LANG' | translate}}
-          </a>
-      <!-- localization drop-down --> 
-          <ul class="dropdown-menu">
-            <li ><a class="dropdown-item " (click)="handleLanguageChange('en')">Eng</a></li>
-            <li ><a class="dropdown-item " (click)="handleLanguageChange('ge')">Geo</a></li>
-          </ul>
-        </li>
-      <!-- 2.About link -->  
-        <li class="nav-item " [routerLinkActive]="'active'" routerLinkActiveOptions = "{exact: true}">
-          <a class="nav-link text-dark " aria-current="page" [routerLink]="['about']">{{'ABOUT' | translate}}</a>
-        </li>
-      <!-- 2.Boards link -->   
-        <li class="nav-item " [routerLinkActive]="'active'" routerLinkActiveOptions = "{exact: true}">
-          <a class="nav-link text-dark " aria-current="page" [routerLink]="['boards']">{{'BOARDS' | translate}}</a>
-        </li>
-      <!-- 3.Create new link -->
-        <li class="nav-item">
-          <a class="nav-link text-dark" role="button"  data-bs-toggle="modal"
-          data-bs-target="#upsert" [routerLink]="['boards']" *ngIf="isAuthorized">{{'CREATE_NEW' | translate}}</a>
-        </li>
-
-        </ul>
-         <!-- 4.Sign-in sign-out buttons -->
-        <ul class="nav d-flex justify-content-between login-list">
-          <li class="nav-item me-3" [routerLinkActive]="'active'" routerLinkActiveOptions = "{exact: true}">
-            <a class="text-decoration-none text-dark my-2 my-sm-0" [routerLink]="['edit-profile']" *ngIf="isAuthorized">{{'EDIT_PROFILE' | translate}}</a>
-          </li>
-          <li class="nav-item me-3" >
-            <a class="text-decoration-none text-dark my-2 my-sm-0" *ngIf="isAuthorized" [routerLink]="['home']" (click)="logOut()">{{'LOG_OUT' | translate}}</a>
-          </li>
-
-          <li class="nav-item me-3" [routerLinkActive]="'active'" routerLinkActiveOptions = "{exact: true}">
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <!-- left links and localization -->
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 mb-5 header-list">
+          <!-- 1.localization link -->
+          <li *ngIf="isAuthorized" class="nav-item dropdown">
             <a
-            role="button"
+              class="nav-link dropdown-toggle text-dark"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              {{ "LANG" | translate }}
+            </a>
+            <!-- localization drop-down -->
+            <ul class="dropdown-menu">
+              <li>
+                <a class="dropdown-item" (click)="handleLanguageChange('en')"
+                  >Eng</a
+                >
+              </li>
+              <li>
+                <a class="dropdown-item" (click)="handleLanguageChange('ge')"
+                  >Geo</a
+                >
+              </li>
+            </ul>
+          </li>
+          <!-- 2.About link -->
+          <li
+            class="nav-item"
+            [routerLinkActive]="'active'"
+            routerLinkActiveOptions="{exact: true}"
+          >
+            <a
+              class="nav-link text-dark"
+              aria-current="page"
+              [routerLink]="['about']"
+              >{{ "ABOUT" | translate }}</a
+            >
+          </li>
+          <!-- 2.Boards link -->
+          <li
+            class="nav-item"
+            [routerLinkActive]="'active'"
+            routerLinkActiveOptions="{exact: true}"
+          >
+            <a
+              class="nav-link text-dark"
+              aria-current="page"
+              [routerLink]="['boards']"
+              >{{ "BOARDS" | translate }}</a
+            >
+          </li>
+          <!-- 3.Create new link -->
+          <li class="nav-item">
+            <a
+              class="nav-link text-dark"
+              role="button"
+              data-bs-toggle="modal"
+              data-bs-target="#upsert"
+              [routerLink]="['boards']"
+              *ngIf="isAuthorized"
+              >{{ "CREATE_NEW" | translate }}</a
+            >
+          </li>
+        </ul>
+        <!-- 4.Sign-in sign-out buttons -->
+        <ul class="nav d-flex justify-content-between login-list">
+          <li
+            class="nav-item me-3"
+            [routerLinkActive]="'active'"
+            routerLinkActiveOptions="{exact: true}"
+          >
+            <a
+              class="text-decoration-none text-dark my-2 my-sm-0"
+              [routerLink]="['edit-profile']"
+              *ngIf="isAuthorized"
+              >{{ "EDIT_PROFILE" | translate }}</a
+            >
+          </li>
+          <li class="nav-item me-3">
+            <a
+              class="text-decoration-none text-dark my-2 my-sm-0"
+              *ngIf="isAuthorized"
+              [routerLink]="['home']"
+              (click)="logOut()"
+              >{{ "LOG_OUT" | translate }}</a
+            >
+          </li>
+
+          <li
+            class="nav-item me-3"
+            [routerLinkActive]="'active'"
+            routerLinkActiveOptions="{exact: true}"
+          >
+            <a
+              role="button"
               class="text-dark text-decoration-none my-2 my-sm-0"
               [routerLink]="['sign-in']"
               *ngIf="!isAuthorized"
             >
-            {{'SIGN_IN' | translate}}
-          </a>
+              {{ "SIGN_IN" | translate }}
+            </a>
           </li>
 
           <li class="nav-item me-3">
             <h4 *ngIf="!isAuthorized">|</h4>
           </li>
 
-          <li class="nav-item" [routerLinkActive]="'active'" routerLinkActiveOptions = "{exact: true}">
-            <a role="button" class="text-dark text-decoration-none my-2 my-sm-0" type="button" [routerLink]="['sign-up']"
-            *ngIf="isAuthorized"
+          <li
+            class="nav-item"
+            [routerLinkActive]="'active'"
+            routerLinkActiveOptions="{exact: true}"
+          >
+            <a
+              role="button"
+              class="text-dark text-decoration-none my-2 my-sm-0"
+              type="button"
+              [routerLink]="['sign-up']"
+              *ngIf="isAuthorized"
             >
-            {{'SIGN_UP' | translate}}
-          </a>
+              {{ "SIGN_UP" | translate }}
+            </a>
           </li>
         </ul>
       </div>
-  </div>
+    </div>
   </nav>
-
 </div>

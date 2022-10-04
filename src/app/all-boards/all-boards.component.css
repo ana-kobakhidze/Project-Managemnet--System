@@ -1,22 +1,21 @@
-.boards{
-    cursor: pointer;
+.boards {
+  cursor: pointer;
 }
-.scroll{
-    overflow: scroll;
+.scroll {
+  overflow: scroll;
 }
 
-.img-box{
-    width: 100%;
-    height: auto;
-
+.img-box {
+  width: 100%;
+  height: auto;
 }
-.img-box:hover{
-    transform: translate(-14px, 7px) rotate(350deg) scale(1.1);
-    cursor: pointer;
+.img-box:hover {
+  transform: translate(-14px, 7px) rotate(350deg) scale(1.1);
+  cursor: pointer;
 }
-.text:hover{
-    font-weight: bold;
+.text:hover {
+  font-weight: bold;
 }
-.title{
-    font-size: 1rem;
+.title {
+  font-size: 1rem;
 }

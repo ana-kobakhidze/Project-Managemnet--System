@@ -1,17 +1,16 @@
-.cdk-drag-preview{
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+.cdk-drag-preview {
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
 }
-.cdk-drag-placeholder{
-    opacity: 0;
+.cdk-drag-placeholder {
+  opacity: 0;
 }
-.cdk-drag-animating{
-    transition:  transform 200ms cubic-bezier(0, 0, 0.2, 0)
+.cdk-drag-animating {
+  transition: transform 200ms cubic-bezier(0, 0, 0.2, 0);
 }
-.cdk-drop-list-dragging .cdk-drag{
-    transition:  transform 200ms cubic-bezier(0, 0, 0.2, 0)
+.cdk-drop-list-dragging .cdk-drag {
+  transition: transform 200ms cubic-bezier(0, 0, 0.2, 0);
 }
-.taskList{
-    max-height: 25rem;
-    overflow: scroll;
-
+.taskList {
+  max-height: 25rem;
+  overflow: scroll;
 }

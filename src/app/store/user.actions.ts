@@ -1,6 +1,5 @@
 import { Action } from '@ngrx/store';
 
-
 export enum AuthActionTypes {
   LOGIN = '[Auth] Login',
   LOGIN_SUCCESS = '[Auth] Login Success',
@@ -9,13 +8,12 @@ export enum AuthActionTypes {
   SIGNUP_SUCCESS = '[Auth] Signup Success',
   SIGNUP_FAILURE = '[Auth] Signup Failure',
   LOGOUT = '[Auth] Logout',
-  SYNC_STATE = 'Sync state'
+  SYNC_STATE = 'Sync state',
 }
 
 export class LogIn implements Action {
   readonly type = AuthActionTypes.LOGIN;
-  constructor(public payload: any) {
-  }
+  constructor(public payload: any) {}
 }
 
 export class LogInSuccess implements Action {

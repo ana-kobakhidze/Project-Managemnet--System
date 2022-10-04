@@ -1,14 +1,16 @@
 <div class="page-container">
-    <div class="content-wrap">
-        <app-header></app-header>
-        <mat-progress-bar mode="indeterminate" color="accent" *ngIf="isLoading" ></mat-progress-bar>
-        <div>
-        <router-outlet></router-outlet>
-        </div>
-        <notifier-container></notifier-container>
+  <div class="content-wrap">
+    <app-header></app-header>
+    <mat-progress-bar
+      mode="indeterminate"
+      color="accent"
+      *ngIf="isLoading"
+    ></mat-progress-bar>
+    <div>
+      <router-outlet></router-outlet>
     </div>
+    <notifier-container></notifier-container>
+  </div>
 
-    <app-footer></app-footer>
+  <app-footer></app-footer>
 </div>
-
-

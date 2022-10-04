@@ -29,20 +29,27 @@ export class FileService {
     const formData = new FormData();
     formData.append('taskId', fileModel.taskId);
     formData.append('file', fileModel.file, fileModel.file.name);
-    return this.http.post(this.baseUrl + '/file', formData, {headers: new HttpHeaders({
+    return this.http.post(this.baseUrl + '/file', formData, {
+      headers: new HttpHeaders({
         Authorization: 'Bearer ' + this.authToken,
-      }), responseType: 'text'});
+      }),
+      responseType: 'text',
+    });
   }
 
-  downloadFile(taskId: string, filename: string){
+  downloadFile(taskId: string, filename: string) {
     const httpOptions = {
-        headers: new HttpHeaders({
-          'accept': '*/*',
-          'Authorization': 'Bearer ' + this.authToken,
-          'content-type': 'application/octet-stream',
-          'responseType': 'blob'
-        }),
-    }
-    return this.http.request('GET',this.baseUrl+ '/file/'+taskId+"/"+filename,{responseType:'arraybuffer'})
-}
+      headers: new HttpHeaders({
+        accept: '*/*',
+        Authorization: 'Bearer ' + this.authToken,
+        'content-type': 'application/octet-stream',
+        responseType: 'blob',
+      }),
+    };
+    return this.http.request(
+      'GET',
+      this.baseUrl + '/file/' + taskId + '/' + filename,
+      { responseType: 'arraybuffer' }
+    );
+  }
 }

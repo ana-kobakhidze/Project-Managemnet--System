@@ -11,22 +11,24 @@ import { AboutPageComponent } from './about-page/about-page.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { AuthGuardService as AuthGuard } from './auth-guard.service';
 
-
 const routes: Routes = [
-  { path: '', redirectTo:"home", pathMatch:'full' },
-  { path:'home',component: WelcomePageComponent},
-  { path:'boards', component: AllBoardsComponent, canActivate: [AuthGuard]},
-  { path: 'board/:id', component: BoardComponent, canActivate: [AuthGuard]},
-  { path: 'sign-in', component: LogInFormComponent},
-  { path: 'sign-up', component: SignUpFormComponent},
-  { path: 'about', component: AboutPageComponent},
-  { path:'edit-profile', component: EditProfileComponent, canActivate: [AuthGuard]},
-  { path: '**', component:PageNotFoundComponent}
-
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'home', component: WelcomePageComponent },
+  { path: 'boards', component: AllBoardsComponent, canActivate: [AuthGuard] },
+  { path: 'board/:id', component: BoardComponent, canActivate: [AuthGuard] },
+  { path: 'sign-in', component: LogInFormComponent },
+  { path: 'sign-up', component: SignUpFormComponent },
+  { path: 'about', component: AboutPageComponent },
+  {
+    path: 'edit-profile',
+    component: EditProfileComponent,
+    canActivate: [AuthGuard],
+  },
+  { path: '**', component: PageNotFoundComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

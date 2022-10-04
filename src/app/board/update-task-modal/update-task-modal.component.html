@@ -37,9 +37,11 @@
             />
           </div>
           <div class="modal-item mt-3">
-            <button class="btn btn-warning btnForCheck"(click)="taskIsDone()"><i *ngIf="task.done" class="bi bi-check text-dark iconForCheck">
-            </i></button>
-            <span class="DoneText">{{ "DONE" | translate}}</span>
+            <button class="btn btn-warning btnForCheck" (click)="taskIsDone()">
+              <i *ngIf="task.done" class="bi bi-check text-dark iconForCheck">
+              </i>
+            </button>
+            <span class="DoneText">{{ "DONE" | translate }}</span>
           </div>
           <div class="modal-item">
             <label
@@ -47,16 +49,16 @@
               class="form-label text-capitalize text-dark fs-6 fw-normal mt-3"
               >{{ "FILE_UPLOAD" | translate }}</label
             >
-            </div>
-            <div class="modal-item">
+          </div>
+          <div class="modal-item">
             <input
               type="file"
               class="file-input mt-3"
               (change)="onChange($event)"
               #fileUpload
             />
-</div>
-<div>
+          </div>
+          <div>
             <div class="file-upload">
               <a
                 mat-mini-fab
@@ -66,7 +68,12 @@
               >
               </a>
               <div *ngIf="uploadedFile">
-                <a class="text-muted"href="javascript: void(0)" (click)="handleDownload()">{{uploadedFile.name}}</a>
+                <a
+                  class="text-muted"
+                  href="javascript: void(0)"
+                  (click)="handleDownload()"
+                  >{{ uploadedFile.name }}</a
+                >
               </div>
               <div *ngIf="!uploadedFile">
                 <span

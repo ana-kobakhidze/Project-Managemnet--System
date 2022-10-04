@@ -11,7 +11,7 @@ import { AppState } from '../app.states';
 import { Remove } from '../actions/loader.actions';
 import { NotifierService } from 'angular-notifier';
 
-export interface LogInResponse{
+export interface LogInResponse {
   token: string;
 }
 
@@ -23,57 +23,68 @@ export class AuthEffects {
     private router: Router,
     private store: Store<AppState>,
     private notifierService: NotifierService
-  ) {
-  }
+  ) {}
 
-  LogIn = createEffect(() => this.actions.pipe(
-  ofType(AuthActions.AuthActionTypes.LOGIN),
-  switchMap((authData: AuthActions.LogIn) => { 
-    return this.authService.logInUser(new User(authData.payload.login, authData.payload.password)).pipe(
-      map(response => {
-        const decodedUser = this.authService.getUserFromAuthToken(response.token);
-        const expAt = new Date(Date.now()).getTime()+10*60000;
-        localStorage.setItem('token', response.token);
-        localStorage.setItem('expDate',expAt.toString());
-        this.router.navigate(['boards']);  
-        this.store.dispatch(new Remove(false));
-        return new AuthActions.LogInSuccess(decodedUser);
-      }),
-      catchError((response) => {
-        this.store.dispatch(new Remove(false));
-        this.notifierService.notify('error', response.error.message);
-        return of(new AuthActions.LogInFailure(response));
-      })
-    );
-  })));
-
-
-  SignUp = createEffect(() => this.actions.pipe(
-  ofType(AuthActions.AuthActionTypes.SIGNUP),
-  map((action: AuthActions.SignUp) => action.payload),
-  switchMap((payload: User) => {
-    return this.authService.signUpUser(payload).pipe(
-      map(response => {
-        this.store.dispatch(new Remove(false));
-        return new AuthActions.SignUpSuccess(response);
-      }),
-      catchError((err) => {
-        this.store.dispatch(new Remove(false))
-        this.notifierService.notify('error', err.error.message);
-        return of(new AuthActions.SignUpFailure(err));
+  LogIn = createEffect(() =>
+    this.actions.pipe(
+      ofType(AuthActions.AuthActionTypes.LOGIN),
+      switchMap((authData: AuthActions.LogIn) => {
+        return this.authService
+          .logInUser(
+            new User(authData.payload.login, authData.payload.password)
+          )
+          .pipe(
+            map((response) => {
+              const decodedUser = this.authService.getUserFromAuthToken(
+                response.token
+              );
+              const expAt = new Date(Date.now()).getTime() + 10 * 60000;
+              localStorage.setItem('token', response.token);
+              localStorage.setItem('expDate', expAt.toString());
+              this.router.navigate(['boards']);
+              this.store.dispatch(new Remove(false));
+              return new AuthActions.LogInSuccess(decodedUser);
+            }),
+            catchError((response) => {
+              this.store.dispatch(new Remove(false));
+              this.notifierService.notify('error', response.error.message);
+              return of(new AuthActions.LogInFailure(response));
+            })
+          );
       })
     )
-  })));
+  );
 
+  SignUp = createEffect(() =>
+    this.actions.pipe(
+      ofType(AuthActions.AuthActionTypes.SIGNUP),
+      map((action: AuthActions.SignUp) => action.payload),
+      switchMap((payload: User) => {
+        return this.authService.signUpUser(payload).pipe(
+          map((response) => {
+            this.store.dispatch(new Remove(false));
+            return new AuthActions.SignUpSuccess(response);
+          }),
+          catchError((err) => {
+            this.store.dispatch(new Remove(false));
+            this.notifierService.notify('error', err.error.message);
+            return of(new AuthActions.SignUpFailure(err));
+          })
+        );
+      })
+    )
+  );
 
-  LogOut = createEffect(() => this.actions.pipe(
-  ofType(AuthActions.AuthActionTypes.LOGOUT_STARTED),
-  map(() => {
-    this.store.dispatch(new Remove(false));
-    localStorage.removeItem('token');
-    localStorage.removeItem('state');
-    localStorage.removeItem('expDate');
-    return new AuthActions.LogOut();
-  })
-));
+  LogOut = createEffect(() =>
+    this.actions.pipe(
+      ofType(AuthActions.AuthActionTypes.LOGOUT_STARTED),
+      map(() => {
+        this.store.dispatch(new Remove(false));
+        localStorage.removeItem('token');
+        localStorage.removeItem('state');
+        localStorage.removeItem('expDate');
+        return new AuthActions.LogOut();
+      })
+    )
+  );
 }

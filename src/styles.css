@@ -1,32 +1,34 @@
 @import "~bootstrap-icons/font/bootstrap-icons.css";
 @import "~angular-notifier/styles";
-.page-container{
-    position: relative;
-    min-height: 100vh;
+.page-container {
+  position: relative;
+  min-height: 100vh;
 }
-.content-wrap{
-    padding-bottom: 2.5rem;
+.content-wrap {
+  padding-bottom: 2.5rem;
 }
 .footer {
-    position: absolute;
-    bottom: 0;
-    left:0;
-    right:0;
-    height: 2.5rem;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2.5rem;
 }
 
-
-.illustration{
-    display: block;
-background: url(./assets/images/illustration.svg) no-repeat;
-background-size: cover;
+.illustration {
+  display: block;
+  background: url(./assets/images/illustration.svg) no-repeat;
+  background-size: cover;
 }
-.spacer{
-    padding-bottom: 25rem;
+.spacer {
+  padding-bottom: 25rem;
 }
 
-
-
-
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}

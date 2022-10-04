@@ -4,7 +4,11 @@ import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 
 import { AppState } from '../../store/app.states';
-import { LogOut, LogOutStarted, SyncState } from 'src/app/store/actions/user.actions';
+import {
+  LogOut,
+  LogOutStarted,
+  SyncState,
+} from 'src/app/store/actions/user.actions';
 import { TranslateService } from '@ngx-translate/core';
 import { GetAllStarted } from 'src/app/store/actions/board.actions';
 
@@ -21,7 +25,7 @@ export class HeaderComponent implements OnInit {
     private store: Store<AppState>,
     public translate: TranslateService
   ) {
-    this.getState = this.store.select("authState");
+    this.getState = this.store.select('authState');
   }
 
   ngOnInit(): void {

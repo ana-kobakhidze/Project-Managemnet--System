@@ -38,7 +38,7 @@
     "NAME_4CHARS": "* სახელი უნდა შეიცავდეს მინიმუმ 4 ასოს.",
     "LOGIN_REQUIRED": "* შეიყვანეთ მომხმარებლის სახელი",
     "PASSWORD_REQUIRED": "* შეიყვანეთ პაროლი",
-    "PASSOWORD_4CHARS": "* პაროლი უნდა შეიცავდეს მინიმუმ 6 ასოს.",
+    "PASSOWORD_6CHARS": "* პაროლი უნდა შეიცავდეს მინიმუმ 6 ასოს.",
     "ANA_HEADER": "ანა კობახიძე",
     "ANA_BODY": "დამწყები “Front-End web developer”-ი გრაფიკული დიზაინის გამოცდილებით. გატაცებული ვარ ჩემი უნარების გაუმჯობესებით, ახალი ტექნოლოგიების გაცნობითა და ინტერაქციული ვებსაიტების შექმნით",
     "ANA_FOOTER":"Rollin scopes Bootcamp Front-end development Udemy Angular - The Complete Guide (2022 გამოცემა)",

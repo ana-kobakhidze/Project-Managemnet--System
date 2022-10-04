@@ -1,4 +1,5 @@
-import { File } from "./file.model";
+import { FileModel } from "./file.model";
+
 export class Tasks{
     public id: string;
     public title: string;
@@ -7,5 +8,5 @@ export class Tasks{
     public userId: string;
     public boardId: string;
     public columnId: string;
-    public files: File[];
+    public files: FileModel[];
 }

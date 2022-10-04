@@ -1,29 +1,28 @@
 .btn:hover,
 .btn:focus,
-.btn:hover
-{
-    border:none;
-    font-weight: bold;
+.btn:hover {
+  border: none;
+  font-weight: bold;
 }
-#buttons{    
-    margin: 30px 0 50px 0;
+#buttons {
+  margin: 30px 0 50px 0;
 }
 
-.buttonGroup{
-        cursor: default;
-    }
-.buttonGroup button:hover{
-        cursor: pointer;
-    }
-.cdk-drag-preview{
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+.buttonGroup {
+  cursor: default;
 }
-.cdk-drag-placeholder{
-    opacity: 0;
+.buttonGroup button:hover {
+  cursor: pointer;
 }
-.cdk-drag-animating{
-    transition:  transform 200ms cubic-bezier(0, 0, 0.2, 0)
+.cdk-drag-preview {
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
 }
-.cdk-drop-list-dragging .cdk-drag{
-    transition:  transform 200ms cubic-bezier(0, 0, 0.2, 0)
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+.cdk-drag-animating {
+  transition: transform 200ms cubic-bezier(0, 0, 0.2, 0);
+}
+.cdk-drop-list-dragging .cdk-drag {
+  transition: transform 200ms cubic-bezier(0, 0, 0.2, 0);
 }

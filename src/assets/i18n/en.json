@@ -40,7 +40,7 @@
     "PASSWORD_REQUIRED": "* password is required",
     "TITLE_REQUIRED": "* title is required",
     "DESCRIPTION_REQUIRED": "* description is required",
-    "PASSOWORD_4CHARS": "* Password must be at least 4 characters long.",
+    "PASSOWORD_6CHARS": "* Password must be at least 6 characters long.",
     "ANA_HEADER": "Ana Kobakhidze",
     "ANA_BODY": "Junior front-end web developer with graphic design background. I am passionate about improving my skills as a Front-end developer, learning new technologies, developing interactive websites",
     "ANA_FOOTER":"Rollin scopes Bootcamp Front-end development Udemy Angular - The Complete Guide (2022 Edition)",

@@ -2,7 +2,6 @@ import { Action } from '@ngrx/store';
 import { User } from 'src/app/models/user.model';
 import { State } from '../reducers/auth.reducers';
 
-
 export enum AuthActionTypes {
   LOGIN = '[Auth] Login',
   LOGIN_SUCCESS = '[Auth] Login Success',
@@ -12,13 +11,12 @@ export enum AuthActionTypes {
   SIGNUP_FAILURE = '[Auth] Signup Failure',
   LOGOUT_STARTED = '[Auth] Logout Started',
   LOGOUT = '[Auth] Logout',
-  SYNC_STATE = 'Sync state'
+  SYNC_STATE = 'Sync state',
 }
 
 export class LogIn implements Action {
   readonly type = AuthActionTypes.LOGIN;
-  constructor(public payload: {login: string, password: string}) {
-  }
+  constructor(public payload: { login: string; password: string }) {}
 }
 
 export class LogInSuccess implements Action {

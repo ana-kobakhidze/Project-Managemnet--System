@@ -56,7 +56,10 @@ export function reducer(state: State = initialState, action: All) {
         (b) => b.id === action.fileModel.taskId
       );
       if (taskIndex > -1) {
-        const taskFile = new TaskFile(action.fileModel.file.name, action.fileModel.file.size);
+        const taskFile = new TaskFile(
+          action.fileModel.file.name,
+          action.fileModel.file.size
+        );
         const files = state.tasks[taskIndex].files || [];
         files.push(taskFile);
         state.tasks[taskIndex].files = files;
