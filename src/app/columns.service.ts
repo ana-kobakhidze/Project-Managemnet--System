@@ -89,6 +89,8 @@ export class ColumnsService {
       title: model.title,
       order: model.order,
     };
+    console.error(request.order);
+    console.error("colservice")
     const httpOptions = {
       headers: new HttpHeaders({
        'Accept': 'application/json',

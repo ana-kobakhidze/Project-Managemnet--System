@@ -72,11 +72,14 @@
             {{'SIGN_IN' | translate}}
           </a>
           </li>
+
           <li class="nav-item me-3">
-            <h4>|</h4>
+            <h4 *ngIf="!isAuthorized">|</h4>
           </li>
+
           <li class="nav-item" [routerLinkActive]="'active'" routerLinkActiveOptions = "{exact: true}">
             <a role="button" class="text-dark text-decoration-none my-2 my-sm-0" type="button" [routerLink]="['sign-up']"
+            *ngIf="!isAuthorized"
             >
             {{'SIGN_UP' | translate}}
           </a>
