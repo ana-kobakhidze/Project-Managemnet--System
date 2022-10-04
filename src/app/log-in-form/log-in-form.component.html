@@ -7,36 +7,73 @@
   <form
     #signInForm="ngForm"
     (ngSubmit)="onSubmit(signInForm.value)"
-    class="my-5 d-flex align-items-center flex-column needs-validation"
+    class="my-5 d-flex align-items-center flex-column needs-validation" ngNativeValidate
   >
     <div class="col-md-4">
-      <label for="login" class="form-label">{{'FIRST_NAME' | translate}}</label>
+
+      <label for="validationCustom01" class="form-label">{{'FIRST_NAME' | translate}}</label>
+
+      <div class="has-validation">
       <input
         type="text"
         class="form-control"
         id="validationCustom01"
+        minlength="4"
         name="login"
         [(ngModel)]="userModel.login"
+        #name="ngModel"
         required
       />
       <div class="valid-feedback">{{'LOOKD_GOOD' | translate}}</div>
+      <!-- invalid feedback -->
+      <div
+      class="invalid-feedback"
+      *ngIf="name.invalid && (name.dirty || name.touched)"
+      class="alert mb-0 pb-0"
+    >
+      <div class="text-danger" *ngIf="name.errors?.['required']">
+        {{ "NAME_REQUIRED" | translate }}
+      </div>
+      <div class="text-danger" *ngIf="name.errors?.['minlength']">
+        {{ "NAME_4CHARS" | translate }}
+      </div>
     </div>
+    <!-- invalid feedback -->
+    </div>
+  </div>
 
     <div class="col-md-4 mt-5">
       <label for="validationCustom02" class="form-label">{{'PASSWORD' | translate}}</label>
+      <div class="has-validation">
+
       <input
         type="password"
         class="form-control"
         id="validationCustom02"
         [(ngModel)]="userModel.password"
         name="password"
+        minlength="6"
+        #password="ngModel"
         required
       />
       <div class="valid-feedback">{{'LOOKS_GOOD' | translate}}</div>
+      <div
+      class="invalid-feedback"
+      *ngIf="password.invalid && (password.dirty || password.touched)"
+      class="alert mb-0 pb-0"
+    >
+      <div class="text-danger" *ngIf="password.errors?.['required']">
+        {{ "PASSWORD_REQUIRED" | translate }}
+      </div>
+      <div class="text-danger" *ngIf="password.errors?.['minlength']">
+        {{ "PASSOWORD_4CHARS" | translate }}
+      </div>
+    </div>
+    </div>
     </div>
 
     <div class="col-4 my-5">
-      <button class="btn btn-warning btn-outline-dark fw-normal" type="submit">{{'SIGN_IN' | translate}}</button>
+      <button class="btn btn-warning btn-outline-dark fw-normal" [disabled]="!signInForm.valid" type="submit">{{'SIGN_IN' | translate}}</button>
     </div>
   </form>
 </div>

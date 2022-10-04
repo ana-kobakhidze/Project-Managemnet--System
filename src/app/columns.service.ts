@@ -30,8 +30,6 @@ export class ColumnsService {
       title: title.title,
       order: order
     }
-    console.error(request.order)
-    console.error("fuck you")
     const httpOptions = {
       headers: new HttpHeaders({
        'Accept': 'application/json',

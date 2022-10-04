@@ -41,8 +41,7 @@ export class AuthEffects {
       }),
       catchError((response) => {
         this.store.dispatch(new Remove(false));
-        const errObj = JSON.parse(response.error);
-        this.notifierService.notify('error', errObj.message);
+        this.notifierService.notify('error', response.error.message);
         return of(new AuthActions.LogInFailure(response));
       })
     );
@@ -60,8 +59,7 @@ export class AuthEffects {
       }),
       catchError((err) => {
         this.store.dispatch(new Remove(false))
-        const errObj = JSON.parse(err.error);
-        this.notifierService.notify('error', errObj.message);
+        this.notifierService.notify('error', err.error.message);
         return of(new AuthActions.SignUpFailure(err));
       })
     )
